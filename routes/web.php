@@ -16,8 +16,8 @@ Route::get('/', function () {
 });
 
 
-Auth::routes(['except'=>['register']]);
-Route::get('docentecurso', 'DocentecursoController@index');
+Auth::routes();
+Route::get('docentecurso', 'DocentecursoController@index')->name('docentecurso');
 
 Route::resource('nota','NotaController');
 //Route::resource('nivel','NivelController');

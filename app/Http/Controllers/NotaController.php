@@ -26,8 +26,8 @@ class NotaController extends Controller
             ->where('NOTAS.TIPONOTAID','=',24)
             ->where('NOTAS.ASIGNATURAID','=',22)
             ->get();
-        return view('notas.vernotas',compact('tablanotas')); */      
-    
+        return view('notas.vernotas',compact('tablanotas')); */
+
     }
 
     /**
@@ -87,12 +87,14 @@ class NotaController extends Controller
      */
     public function update(Request $request, $id)
     {
+      //  dd($request);
 
         $tablanotas=nota::findorfail($id);
-        $tablanotas->fill($request->all());
-        $tablanotas->save();
-        //return redirect()->to('/vernotas'); 
-          
+       // $tablanotas->fill($request->all());
+    $tablanotas->NOTA = $request->NOTA;
+      $tablanotas->save();
+      return redirect(route('docentecurso'));
+
     }
 
     /**
@@ -120,7 +122,7 @@ class NotaController extends Controller
         ->where('NOTAS.TIPONOTAID','=',$tipono)
         ->get();
         return view('notas.vernotas',compact('tablanotas'));
-   
+
     }
 
     public function __construct()
