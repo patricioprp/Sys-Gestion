@@ -6,31 +6,31 @@
  	<form class="form-group" method="get" action="vernotas" enctype="multipart/form-data">
  		<div class="form-group">
 			<label for="">Año</label>
-			<input type="text" class="form-control" name="ano" value="2018">
+			<input type="text" class="form-control" name="ano" value={{date("Y")}}>
 		</div>
-		<div class="form-group">          
-            <label for="control1">Seleccione un Nivel / Division</label> 
+		<div class="form-group">
+            <label for="control1">Seleccione un Nivel / Division</label>
             <select class="form-control" id="control1" name="control1">
-            	@foreach($docentecursos as $doccurso) 
+            	@foreach($docentecursos as $doccurso)
                 	<option value={{ $doccurso->ASIGNATURACURSOID}}>{{ $doccurso->ANIO }} - {{ $doccurso->IDNIVELES }} - {{ $doccurso->IDDIVISION }} - {{ $doccurso->NOMASIGNATURA }}</option>
-                @endforeach    
-            </select> 
+                @endforeach
+            </select>
         </div>
-        <div class="form-group">          
-            <label for="control2">Seleccione Modalidad</label> 
+        <div class="form-group">
+            <label for="control2">Seleccione Modalidad</label>
             <select class="form-control" id="control2" name="control2">
-            	@foreach($tablamodalidad as $modali) 
+            	@foreach($tablamodalidad as $modali)
                 	<option value={{ $modali->IDMODALIDAD}}>{{ $modali->EVALUACION }}</option>
-                @endforeach    
-            </select> 
+                @endforeach
+            </select>
         </div>
-        <div class="form-group">          
-            <label for="control3">Seleccione Tipo Nota</label> 
+        <div class="form-group">
+            <label for="control3">Seleccione Tipo Nota</label>
             <select class="form-control" id="control3" name="control3">
-                @foreach($tiponota as $tipono) 
+                @foreach($tiponota as $tipono)
                     <option value={{ $tipono->TIPONOTAID}}>{{ $tipono->DESCRIPCION }}</option>
-                @endforeach    
-            </select> 
+                @endforeach
+            </select>
         </div>
 
         <button type="submit" class="btn btn-primary">Enviar</button>

@@ -90,9 +90,8 @@ class NotaController extends Controller
       //  dd($request);
 
         $tablanotas=nota::findorfail($id);
-       // $tablanotas->fill($request->all());
-    $tablanotas->NOTA = $request->NOTA;
-      $tablanotas->save();
+         $tablanotas->fill($request->all());
+        $tablanotas->save();
       return redirect(route('docentecurso'));
 
     }
