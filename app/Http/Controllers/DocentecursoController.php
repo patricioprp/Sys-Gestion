@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-//use App\docentecurso;
+use App\docentecurso;
 use App\modalidad;
 use App\tiponota;
 use Auth;

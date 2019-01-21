@@ -10,7 +10,11 @@ class AsignaturaCurso extends Model
     protected $primaryKey = 'ASIGNATURACURSOID';
     protected $fillable = ['ASIGNATURACURSOID','ASIGNATURAID','IDNIVELES','IDDIVISION','ANIO','ORDEN','DIASCLASE','PORCETAJESDIAS','PROMEDIO','NUMERICA'];
 
-    public function docenteCurso(){
-        return $this->hasMany('\App\DocenteCurso');
+    public function docenteCursos(){
+        return $this->hasMany('\App\DocenteCurso','IDDOCENTECURSO');
+      }
+
+    public function asignatura(){
+        return $this->belongsTo('\App\Asignatura','ASIGNATURAID');
       }
 }
