@@ -17,4 +17,8 @@ class Modalidad extends Model
     public function tipoModalidad(){
         return $this->belongsTo('\App\TipoModalidad','IDTIPOMODALIDAD');
       }
+
+      public function configuraMods(){
+        return $this->hasMany('\App\ConfiguraMod','IDCONFIGURAMOD');
+      }
 }
