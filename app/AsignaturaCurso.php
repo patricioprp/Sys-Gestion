@@ -17,4 +17,12 @@ class AsignaturaCurso extends Model
     public function asignatura(){
         return $this->belongsTo('\App\Asignatura','ASIGNATURAID');
       }
+
+    public function division(){
+        return $this->belongsTo('\App\Division','IDDIVISION');
+      }
+      
+    public function nivel(){
+        return $this->belongsTo('\App\Nivel','IDNIVELES');
+      }
 }

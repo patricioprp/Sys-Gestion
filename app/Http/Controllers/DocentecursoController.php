@@ -18,6 +18,7 @@ class DocentecursoController extends Controller
     public function index()
     {
         $iddocente=Auth::user()->id;
+
         $docentecursos = docentecurso::join('ASIGNATURACURSO', 'ASIGNATURACURSO.ASIGNATURACURSOID', '=', 'DOCENTECURSO.ASIGNATURACURSOID')
             ->join('ASIGNATURA','ASIGNATURA.ASIGNATURAID','=','ASIGNATURACURSO.ASIGNATURAID')
             ->select('ASIGNATURACURSO.*','ASIGNATURA.IDTIPOMODALIDAD','ASIGNATURA.NOMBRE AS NOMASIGNATURA')
