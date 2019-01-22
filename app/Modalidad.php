@@ -13,4 +13,8 @@ class Modalidad extends Model
     public function tipoNotas(){
         return $this->hasMany('\App\TipoNota','TIPONOTAID');
       }
+
+    public function tipoModalidad(){
+        return $this->belongsTo('\App\TipoModalidad','IDTIPOMODALIDAD');
+      }
 }

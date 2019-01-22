@@ -10,5 +10,7 @@ class TipoModalidad extends Model
     protected $primaryKey = 'IDTIPOMODALIDAD';
     protected $fillable = ['IDTIPOMODALIDAD','CODIGO','DESCRIPCION'];
 
-
+    public function modalidades(){
+        return $this->hasMany('\App\Modalidad','IDMODALIDAD');
+      }
 }
