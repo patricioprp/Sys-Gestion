@@ -16,8 +16,8 @@ class User extends Authenticatable
      * @var array
       */
     protected $table = 'DOCENTES';
-    protected $primaryKey = 'id';
-    protected $fillable = ['id','name','calle','numero','piso','codpostal','codlocalidad','iddoc','numdoc','sexo','nacimiento','telefono1','telefono2','estaodcivil','idpais','email','cuil','cbu','ingreso','antig_reco_dias','egreso','idobrasocial','idsituacion','idcondicion','idactividad','idmodalidad','idprovloc','siniestro','seguro','password'];
+    protected $primaryKey = 'iddocente';
+    protected $fillable = ['iddocente','name','calle','numero','piso','codpostal','codlocalidad','iddoc','numdoc','sexo','nacimiento','telefono1','telefono2','estaodcivil','idpais','email','cuil','cbu','ingreso','antig_reco_dias','egreso','idobrasocial','idsituacion','idcondicion','idactividad','idmodalidad','idprovloc','siniestro','seguro','password'];
 
     /**
      * The attributes that should be hidden for arrays.
