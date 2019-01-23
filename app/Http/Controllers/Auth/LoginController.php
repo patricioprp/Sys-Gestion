@@ -9,7 +9,7 @@ use Auth;
 
 class LoginController extends Controller
 {
-    
+
     /*
     |--------------------------------------------------------------------------
     | Login Controller
@@ -22,13 +22,13 @@ class LoginController extends Controller
     */
 
     use AuthenticatesUsers;
-  
+
     /**
      * Where to redirect users after login.
      *
      * @var string
      */
-    protected $redirectTo = 'docentecurso';
+    protected $redirectTo = 'docenteCurso';
 
     /**
      * Create a new controller instance.
@@ -40,5 +40,5 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
-   
+
 }

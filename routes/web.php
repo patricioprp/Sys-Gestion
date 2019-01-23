@@ -24,6 +24,7 @@ Route::resource('nota','NotaController');
 //Route::resource('docentecurso','DocentecursoController');
 Route::get('vernotas','NotaController@detallenotas');
 
-
+//PAtricio
+Route::resource('docenteCurso','DocenteCursoController');
 
 
