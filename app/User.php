@@ -37,4 +37,10 @@ class User extends Authenticatable
 
         return $this->hasMany('\App\DocenteCurso','IDDOCENTECURSO');
       }
+
+    public function asignaturas(){
+
+        return $this->belongsToMany('App\AsignaturaCurso', 'DOCENTECURSO','ASIGNATURACURSOID','IDDOCENTECURSO');
+    }
+
 }

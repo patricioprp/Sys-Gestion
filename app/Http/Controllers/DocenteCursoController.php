@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Auth;
 use App\Modalidad;
 use App\TipoNota;
+use App\DocenteCurso;
 
 class DocenteCursoController extends Controller
 {
@@ -16,9 +17,15 @@ class DocenteCursoController extends Controller
      */
     public function index()
     {
-        $docente=Auth::user();
-        $modalidades = Modalidad::all();
-        $tipoNota = TipoNota::all();
+        $idDocente=Auth::user()->id;
+        $docenteCursos = DocenteCurso::join('ASIGNATURACURSO', 'ASIGNATURACURSO.ASIGNATURACURSOID', '=',
+         'DOCENTECURSO.ASIGNATURACURSOID')
+            ->join('ASIGNATURA','ASIGNATURA.ASIGNATURAID','=','ASIGNATURACURSO.ASIGNATURAID')
+            ->select('ASIGNATURACURSO.*','ASIGNATURA.IDTIPOMODALIDAD','ASIGNATURA.NOMBRE AS NOMASIGNATURA')
+            ->where('DOCENTECURSO.iddocente','=',$idDocente)
+            ->get();
+
+       return view('notas.DocenteCurso')->with('docenteCursos',$docenteCursos);
 
     }
 

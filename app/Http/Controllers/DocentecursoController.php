@@ -19,7 +19,8 @@ class DocentecursoController extends Controller
     {
         $iddocente=Auth::user()->id;
 
-        $docentecursos = docentecurso::join('ASIGNATURACURSO', 'ASIGNATURACURSO.ASIGNATURACURSOID', '=', 'DOCENTECURSO.ASIGNATURACURSOID')
+        $docentecursos = docentecurso::join('ASIGNATURACURSO', 'ASIGNATURACURSO.ASIGNATURACURSOID', '=',
+         'DOCENTECURSO.ASIGNATURACURSOID')
             ->join('ASIGNATURA','ASIGNATURA.ASIGNATURAID','=','ASIGNATURACURSO.ASIGNATURAID')
             ->select('ASIGNATURACURSO.*','ASIGNATURA.IDTIPOMODALIDAD','ASIGNATURA.NOMBRE AS NOMASIGNATURA')
             ->where('DOCENTECURSO.IDDOCENTE','=',$iddocente)
