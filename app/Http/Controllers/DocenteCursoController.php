@@ -8,6 +8,8 @@ use App\Modalidad;
 use App\TipoNota;
 use App\DocenteCurso;
 use App\User;
+use App\Asignatura;
+use App\TipoModalidad;
 
 class DocenteCursoController extends Controller
 {
@@ -19,16 +21,18 @@ class DocenteCursoController extends Controller
     public function index()
     {
         $Docente=Auth::user();
-        
+
         $docenteCursos = $Docente->asignaturas;
 
        return view('notas.DocenteCurso')->with('docenteCursos',$docenteCursos);
 
     }
 
-    public function getModalidads(Request $request,$IDMODALIDAD){
+    public function getModalidad(Request $request,$ASIGNATURAID){
         if($request->ajax()){
-            $modalidads = Town::modalidads($IDMODALIDAD);
+            $asignatura = Asignatura::find($ASIGNATURAID);
+            $IDTIPOMODALIDAD =$asignatura->IDTIPOMODALIDAD;
+            $modalidads = TipoModalidad::tipoModalidad($IDTIPOMODALIDAD);
           return response()->json($modalidads);
         }
     }

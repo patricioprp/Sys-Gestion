@@ -13,8 +13,9 @@
 <p>
 <div class="row">
     <select class="form-control" id="asigCurso" name="asigCurso">
+            <option value="" disabled selected>Seleccione una Asignatura</option>
         @foreach($docenteCursos as $docCurso)
-            <option value={{ $docCurso->asignatura->ASIGNATURAID}}>{{ $docCurso->ANIO }} - {{ $docCurso->IDNIVELES }} - {{ $docCurso->IDDIVISION }} - {{$docCurso->asignatura->NOMBRE}}-{{$docCurso->asignatura->ASIGNATURAID}}</option>
+            <option value={{ $docCurso->asignatura->ASIGNATURAID}}>{{ $docCurso->ANIO }} - {{ $docCurso->IDNIVELES }} - {{ $docCurso->IDDIVISION }} - {{$docCurso->asignatura->NOMBRE}}</option>
         @endforeach
     </select>
 </div>

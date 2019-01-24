@@ -26,5 +26,6 @@ Route::get('vernotas','NotaController@detallenotas');
 
 //PAtricio
 Route::resource('docenteCurso','DocenteCursoController');
+Route::get('asignatura/{ASIGNATURAID}','DocenteCursoController@getModalidad');
 
 
