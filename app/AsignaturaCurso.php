@@ -25,8 +25,10 @@ class AsignaturaCurso extends Model
     public function nivel(){
         return $this->belongsTo('\App\Nivel','IDNIVELES');
       }
+
     public function docentes(){
 
-        return $this->belongsToMany('App\User', 'DOCENTECURSO','IDDOCENTECURSO','iddocente');
+        return $this->belongsToMany('App\User', 'DOCENTECURSO','iddocente','IDDOCENTECURSO');
     }
+
 }

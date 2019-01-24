@@ -13,4 +13,8 @@ class TipoModalidad extends Model
     public function modalidades(){
         return $this->hasMany('\App\Modalidad','IDMODALIDAD');
       }
+
+    public function asignaturas(){
+        return $this->hasMany('\App\Asignatura','ASIGNATURAID');
+      }
 }

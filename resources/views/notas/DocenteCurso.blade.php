@@ -10,20 +10,22 @@
     <label for="ano">Año</label>
     <input type="text" class="form-control" name="ano" value={{date("Y")}}>
 </div>
+<p>
 <div class="row">
-    <div class="col-lg-12">
-        {!! Form::select('docenteCurso',$docenteCursos,null,['class'=>'form-control','id' =>'docenteCurso','placeholder'=>'Seleccione un Curso'])!!}
-    </div>
+    <select class="form-control" id="asigCurso" name="asigCurso">
+        @foreach($docenteCursos as $docCurso)
+            <option value={{ $docCurso->asignatura->ASIGNATURAID}}>{{ $docCurso->ANIO }} - {{ $docCurso->IDNIVELES }} - {{ $docCurso->IDDIVISION }} - {{$docCurso->asignatura->NOMBRE}}-{{$docCurso->asignatura->ASIGNATURAID}}</option>
+        @endforeach
+    </select>
 </div>
+</p>
+<p>
 <div class="row">
-    <div class="col-lg-12">
-        {!! Form::select('modalidad',['placeholder'=>'Seleccion una Modalidad'],null,['class'=>'form-control select-modalidad','id'=>'modalidad'])!!}
-    </div>
+        {!! Form::select('modalidad',['placeholder'=>'Seleccion una Modalidad'],null,['class'=>'form-control','id'=>'modalidad'])!!}
 </div>
+</p>
 <div class="row">
-    <div class="col-lg-12">
         {!! Form::select('tipoNota',['placeholder'=>'Selecciona un Tipo de Nota'],null,['class'=>'form-control','id'=>'tipoNota'])!!}
-    </div>
 </div>
   <hr /><hr />
   <div class="row">

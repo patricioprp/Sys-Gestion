@@ -77,5 +77,6 @@
     <div class="container">
         @yield('javascript')
     </div>
+    {!! Html::script('js/dropdown.js')!!}
 </body>
 </html>
