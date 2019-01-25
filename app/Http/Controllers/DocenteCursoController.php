@@ -32,7 +32,8 @@ class DocenteCursoController extends Controller
         if($request->ajax()){
             $asignatura = Asignatura::find($ASIGNATURAID);
             $IDTIPOMODALIDAD =$asignatura->IDTIPOMODALIDAD;
-            $modalidads = TipoModalidad::tipoModalidad($IDTIPOMODALIDAD);
+            $idtipomodalidad = TipoModalidad::find($IDTIPOMODALIDAD);
+            $modalidads = Modalidad::modalidad($idtipomodalidad->IDTIPOMODALIDAD);
           return response()->json($modalidads);
         }
     }

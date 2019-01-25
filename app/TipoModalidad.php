@@ -18,8 +18,5 @@ class TipoModalidad extends Model
         return $this->hasMany('\App\Asignatura','ASIGNATURAID');
       }
 
-      public static function tipoModalidad($IDTIPOMODALIDAD){
-        return TipoModalidad::where('IDTIPOMODALIDAD','=',$IDTIPOMODALIDAD)
-        ->get();
-      }
+
 }

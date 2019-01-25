@@ -21,4 +21,9 @@ class Modalidad extends Model
       public function configuraMods(){
         return $this->hasMany('\App\ConfiguraMod','IDCONFIGURAMOD');
       }
+
+      public static function modalidad($idtipomodalidad){
+        return Modalidad::where('IDTIPOMODALIDAD','=',$idtipomodalidad)
+        ->get();
+      }
 }
