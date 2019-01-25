@@ -13,4 +13,9 @@ class TipoNota extends Model
     public function modalidad(){
         return $this->belongsTo('\App\Modalidad','IDMODALIDAD');
       }
+
+      public static function modalidads($IDMODALIDAD){
+        return TipoNota::where('IDMODALIDAD','=',$IDMODALIDAD)
+        ->get();
+      }
 }

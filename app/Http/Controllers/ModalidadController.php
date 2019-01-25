@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\modalidad;
+//use App\modalidad;
+use App\Modalidad;
+use App\TipoNota;
 
 class ModalidadController extends Controller
 {
@@ -21,9 +23,15 @@ class ModalidadController extends Controller
 
     }
 
+    public function getTipoNota(Request $request,$IDMODALIDAD){
+        if($request->ajax()){
+            $tipoNotas = TipoNota::modalidads($IDMODALIDAD);
+          return response()->json($tipoNotas);
+        }
+    }
     public function index()
     {
-    
+
     }
 
     /**
