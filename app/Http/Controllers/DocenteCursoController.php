@@ -10,7 +10,8 @@ use App\DocenteCurso;
 use App\User;
 use App\Asignatura;
 use App\TipoModalidad;
-
+use App\ConfiguraMod;
+use App\nota;
 class DocenteCursoController extends Controller
 {
     /**
@@ -24,8 +25,20 @@ class DocenteCursoController extends Controller
 
         $docenteCursos = $Docente->asignaturas;
 
-       return view('notas.DocenteCurso')->with('docenteCursos',$docenteCursos);
-
+        foreach($docenteCursos as $dc){
+        $n=$dc->asignatura->tipoModalidad->modalidades;
+        foreach($n as $n2){
+         $M=$n2->configuraMods;
+         foreach($M as $m){
+             dump($m->IDCONFIGURAMOD);
+         if($m->ACTIVO=="S"){
+            return view('notas.DocenteCurso')->with('docenteCursos',$docenteCursos);
+         }
+         }
+        }
+        }
+        flash("Usted no tiene Asignaturas con Modalidades Habilitadas para cargar!")->error();
+        return redirect(route('inicio'));
     }
 
     public function getModalidad(Request $request,$ASIGNATURAID){
@@ -55,7 +68,24 @@ class DocenteCursoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //flash("Se creo la Comision correctamente!")->success();
+        //return redirect(route('docenteCurso.index'));
+       // dd($request->all());
+        $tipoNota = TipoNota::find($request->tipoNota);
+
+        $modalidad = Modalidad::find($tipoNota->IDMODALIDAD);
+
+        $configuraMod = ConfiguraMod::where([['IDMODALIDAD','=',$modalidad->IDMODALIDAD],['ACTIVO','=','S']])->get();
+
+        if($configuraMod)
+        {
+         $nota = Nota::where('ASIGNATURAID','=',$request->asigCurso)->get();
+
+         foreach($nota as $n){
+dump($n);  //falta definir las relaciones en la tabla nota y alumnos
+         }
+        }
+
     }
 
     /**
