@@ -11,7 +11,7 @@ use App\User;
 use App\Asignatura;
 use App\TipoModalidad;
 use App\ConfiguraMod;
-use App\nota;
+use App\Nota;
 class DocenteCursoController extends Controller
 {
     /**
@@ -70,20 +70,30 @@ class DocenteCursoController extends Controller
     {
         //flash("Se creo la Comision correctamente!")->success();
         //return redirect(route('docenteCurso.index'));
-       // dd($request->all());
+       //dd($request->all());
         $tipoNota = TipoNota::find($request->tipoNota);
 
         $modalidad = Modalidad::find($tipoNota->IDMODALIDAD);
 
         $configuraMod = ConfiguraMod::where([['IDMODALIDAD','=',$modalidad->IDMODALIDAD],['ACTIVO','=','S']])->get();
 
+        $asignatura = Asignatura::find($request->asigCurso);
+
         if($configuraMod)
         {
-         $nota = Nota::where('ASIGNATURAID','=',$request->asigCurso)->get();
+         $notas = Nota::where([['ASIGNATURAID','=',$request->asigCurso],['TIPONOTAID','=',$request->tipoNota],
+         ['IDMODALIDAD','=',$modalidad->IDMODALIDAD]])->get();//AQUI TENGO Q PASAR LOS DEMAS PARAMETROS DE MODALIDAD Y TIPO NOTA
 
-         foreach($nota as $n){
-dump($n);  //falta definir las relaciones en la tabla nota y alumnos
+         foreach($notas as $n){
+           $anio = $n->ANIO;
+           $nivel = $n->division->IDNIVELES;
+          $division = $n->division->ABREVIA;
          }
+         return view('notas.Listado')->with('notas',$notas)
+                                     ->with('asignatura',$asignatura)
+                                     ->with('anio',$anio)
+                                     ->with('nivel',$nivel)
+                                     ->with('division',$division);
         }
 
     }

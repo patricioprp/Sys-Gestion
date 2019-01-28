@@ -18,4 +18,8 @@ class Division extends Model
     public function nivel(){
         return $this->belongsTo('\App\Nivel','IDNIVELES');
       }
+
+      public function notas(){
+        return $this->hasMany('\App\Nota','NOTAID');
+      }
 }

@@ -13,4 +13,7 @@ class Alumno extends Model
     public function notAdicionals(){
         return $this->hasMany('\App\NotAdicional','IDNOTAADICIONAL');
       }
+      public function notas(){
+        return $this->hasMany('\App\Nota','NOTAID');
+      }
 }

@@ -26,10 +26,10 @@
 		      <td>{{ $detnota->NOTA}}</td>
 			  <td>
 				<a href="/nota/{{ $detnota->NOTAID}}" class="btn btn-primary" role="button">Editar nota</a>
- 			  </td>	
+ 			  </td>
 		    </tr>
 	    @endforeach
 	  </tbody>
 	</table>
-</div>	
+</div>
 @endsection
