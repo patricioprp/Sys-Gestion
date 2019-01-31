@@ -3,12 +3,14 @@
 @section('titulo','Listado de notas')
 
 @section('cuerpo')
-<body>
+
     <div class="panel panel-default">
       <!-- Default panel contents -->
       <div class="panel-heading">
         <div class="row">
             <h5>Asignatura:{{$asignatura->NOMBRE}}  - Año:{{$anio}}  - Nivel:{{$nivel}}  - Division:{{$division}}  </h5>
+
+            {!! Form::hidden('idDiv', $idDiv) !!}
         </div>
       </div>
 <p>
@@ -30,7 +32,7 @@
             <td>{{$nota->alumno->APELLIDOS}}</td>
             <td>{{$nota->alumno->NOMBRES}}</td>
             <td>{{$nota->NOTA}}</td>
-            <td><a href="" class="btn btn-success" title="Ver Comisiones">Calificar</span></a></td>
+            <td><a href="{{route('NotaView', ['idNota' => $nota->NOTAID, 'idAsig' => $asignatura->ASIGNATURAID, 'idTipoNota' =>$idTipoNota])}}" class="btn btn-success" title="Calificar">Calificar</span></a></td>
         </tr>
           @endforeach
 

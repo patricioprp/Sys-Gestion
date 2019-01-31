@@ -3,7 +3,7 @@
 
 @section('cuerpo')
 
-{!! Form::open(['route' => 'docenteCurso.store','method'=>'POST']) !!}
+{!! Form::open(['route' => 'Nota.store','method'=>'POST']) !!}
 
 <div class="form-group">
 <div class="row">

@@ -4,7 +4,15 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
-use App\nota;
+use Auth;
+use App\Modalidad;
+use App\TipoNota;
+use App\DocenteCurso;
+use App\User;
+use App\Asignatura;
+use App\TipoModalidad;
+use App\ConfiguraMod;
+use App\Nota;
 
 class NotaController extends Controller
 {
@@ -16,17 +24,7 @@ class NotaController extends Controller
     public function index()
     {
 
-    /*  $tablanotas = nota::join('ASIGNATURA', 'ASIGNATURA.ASIGNATURAID', '=', 'NOTAS.ASIGNATURAID')
-            ->join('ALUMNOS', 'ALUMNOS.IDALUMNO', '=', 'NOTAS.IDALUMNO')
-            ->select('NOTAS.*', 'ASIGNATURA.NOMBRE AS MATERIA', 'ALUMNOS.APELLIDOS AS NOMBRES')
-            ->where('NOTAS.ANIO','=',2018)
-            ->where('NOTAS.IDDIVISION','=','5B')
-            ->where('NOTAS.IDNIVELES','=','SECUNDARIO')
-            ->where('NOTAS.IDMODALIDAD','=',18)
-            ->where('NOTAS.TIPONOTAID','=',24)
-            ->where('NOTAS.ASIGNATURAID','=',22)
-            ->get();
-        return view('notas.vernotas',compact('tablanotas')); */
+
 
     }
 
@@ -48,8 +46,36 @@ class NotaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $tipoNota = TipoNota::find($request->tipoNota);
+
+        $modalidad = Modalidad::find($tipoNota->IDMODALIDAD);
+
+        $configuraMod = ConfiguraMod::where([['IDMODALIDAD','=',$modalidad->IDMODALIDAD],['ACTIVO','=','S'],['ANO','=',date("Y")]])->get();
+
+        $asignatura = Asignatura::find($request->asigCurso);
+
+        if($configuraMod)
+        {
+         $notas = Nota::where([['ASIGNATURAID','=',$request->asigCurso],['TIPONOTAID','=',$request->tipoNota],
+         ['IDMODALIDAD','=',$modalidad->IDMODALIDAD]])->get();
+
+         foreach($notas as $n){
+           $anio = $n->ANIO;
+           $nivel = $n->division->IDNIVELES;
+          $division = $n->division->ABREVIA;
+          $idDiv = $n->division->IDDIVISION;
+         }
+         return view('notas.Listado')->with('notas',$notas)
+                                     ->with('asignatura',$asignatura)
+                                     ->with('anio',$anio)
+                                     ->with('nivel',$nivel)
+                                     ->with('idDiv',$idDiv)
+                                     ->with('division',$division)
+                                     ->with('idTipoNota',$request->tipoNota);
+        }
+
     }
+
 
     /**
      * Display the specified resource.
@@ -59,14 +85,25 @@ class NotaController extends Controller
      */
     public function show($id)
     {
-         $tablanotas = nota::join('ASIGNATURA', 'ASIGNATURA.ASIGNATURAID', '=', 'NOTAS.ASIGNATURAID')
+        /* $tablanotas = nota::join('ASIGNATURA', 'ASIGNATURA.ASIGNATURAID', '=', 'NOTAS.ASIGNATURAID')
         ->join('ALUMNOS', 'ALUMNOS.IDALUMNO', '=', 'NOTAS.IDALUMNO')
         ->select('NOTAS.*', 'ASIGNATURA.NOMBRE AS MATERIA', 'ALUMNOS.APELLIDOS AS APELLIDO','ALUMNOS.NOMBRES AS NOMBRE')
         ->find($id);
-        return view('notas.editar',compact('tablanotas'));
+        return view('notas.editar',compact('tablanotas'));*/
+        $nota = Nota::find($id);
+        return view('notas.Editar')->with('nota',$nota);
 
     }
 
+    public function view($idNota,$idAsig,$idTipoNota)
+    {
+        $nota = Nota::find($idNota);
+        $asignatura = Asignatura::find($idAsig);
+        return view('notas.Editar')->with('nota',$nota)
+                                   ->with('asignatura',$asignatura)
+                                   ->with('idAsig',$idAsig)
+                                   ->with('idTipoNota',$idTipoNota);
+    }
     /**
      * Show the form for editing the specified resource.
      *
@@ -87,12 +124,15 @@ class NotaController extends Controller
      */
     public function update(Request $request, $id)
     {
-      //  dd($request);
+        //dd($request->all());
+        //dd($id);
+        $nota=Nota::findorfail($id);
 
-        $tablanotas=nota::findorfail($id);
-         $tablanotas->fill($request->all());
-        $tablanotas->save();
-      return redirect(route('docentecurso'));
+         $nota->NOTA = $request->nota;
+        $nota->save();
+        return redirect()->action('DocenteCursoController@list',['idDiv'=>$request->idDiv,'idAsig'=>$request->idAsig]);
+      // return redirect()->back();
+
 
     }
 

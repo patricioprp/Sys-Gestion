@@ -19,6 +19,11 @@ class DocenteCursoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index()
     {
         $Docente=Auth::user();
@@ -30,7 +35,7 @@ class DocenteCursoController extends Controller
         foreach($n as $n2){
          $M=$n2->configuraMods;
          foreach($M as $m){
-             dump($m->IDCONFIGURAMOD);
+            // dump($m->IDCONFIGURAMOD);
          if($m->ACTIVO=="S"){
             return view('notas.DocenteCurso')->with('docenteCursos',$docenteCursos);
          }
@@ -68,9 +73,7 @@ class DocenteCursoController extends Controller
      */
     public function store(Request $request)
     {
-        //flash("Se creo la Comision correctamente!")->success();
-        //return redirect(route('docenteCurso.index'));
-       //dd($request->all());
+
         $tipoNota = TipoNota::find($request->tipoNota);
 
         $modalidad = Modalidad::find($tipoNota->IDMODALIDAD);
@@ -82,20 +85,52 @@ class DocenteCursoController extends Controller
         if($configuraMod)
         {
          $notas = Nota::where([['ASIGNATURAID','=',$request->asigCurso],['TIPONOTAID','=',$request->tipoNota],
-         ['IDMODALIDAD','=',$modalidad->IDMODALIDAD]])->get();//AQUI TENGO Q PASAR LOS DEMAS PARAMETROS DE MODALIDAD Y TIPO NOTA
+         ['IDMODALIDAD','=',$modalidad->IDMODALIDAD]])->get();
 
          foreach($notas as $n){
-           $anio = $n->ANIO;
            $nivel = $n->division->IDNIVELES;
           $division = $n->division->ABREVIA;
+          $idDiv = $n->division->IDDIVISION;
          }
          return view('notas.Listado')->with('notas',$notas)
                                      ->with('asignatura',$asignatura)
-                                     ->with('anio',$anio)
+                                     ->with('idDiv',$idDiv)
                                      ->with('nivel',$nivel)
                                      ->with('division',$division);
         }
 
+    }
+
+   public function list($idAsig, $idTipoNota){
+
+
+    $tipoNota = TipoNota::find($idTipoNota);
+
+    $modalidad = Modalidad::find($tipoNota->IDMODALIDAD);
+
+    $configuraMod = ConfiguraMod::where([['IDMODALIDAD','=',$modalidad->IDMODALIDAD],['ACTIVO','=','S']])->get();
+
+    $asignatura = Asignatura::find($idAsig);
+
+    if($configuraMod)
+    {
+     $notas = Nota::where([['ASIGNATURAID','=',$idAsig],['TIPONOTAID','=',$idTipoNota],
+     ['IDMODALIDAD','=',$modalidad->IDMODALIDAD]])->get();
+
+     foreach($notas as $n){
+        $anio = $n->ANIO;
+        $nivel = $n->division->IDNIVELES;
+        $division = $n->division->ABREVIA;
+        $idDiv = $n->division->IDDIVISION;
+     }
+     return view('notas.Listado')->with('notas',$notas)
+                                 ->with('anio',$anio)
+                                 ->with('asignatura',$asignatura)
+                                 ->with('idDiv',$idDiv)
+                                 ->with('nivel',$nivel)
+                                 ->with('division',$division)
+                                 ->with('idTipoNota',$idTipoNota);
+    }
     }
 
     /**

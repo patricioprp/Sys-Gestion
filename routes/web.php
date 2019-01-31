@@ -19,14 +19,17 @@ Route::get('/', function () {
 Auth::routes();
 Route::get('docentecurso', 'DocentecursoController@index')->name('docentecurso');
 
-Route::resource('nota','NotaController');
+//Route::resource('nota','NotaController');
 //Route::resource('nivel','NivelController');
 //Route::resource('docentecurso','DocentecursoController');
 Route::get('vernotas','NotaController@detallenotas');
 
-//PAtricio
+//Patricio
 Route::resource('docenteCurso','DocenteCursoController');
-Route::get('asignatura/{ASIGNATURAID}','DocenteCursoController@getModalidad');
-Route::get('tipoNota/{IDMODALIDAD}','ModalidadController@getTipoNota');
+Route::get('asignatura/{ASIGNATURAID}','DocenteCursoController@getModalidad');//para el select dinamico
+Route::get('tipoNota/{IDMODALIDAD}','ModalidadController@getTipoNota');//para el select dinamico
+Route::resource('Nota','NotaController');
+Route::get('Nota/{idNota}/{idAsig}/{idTipoNota}','NotaController@view')->name('NotaView');
+Route::get('DocenteCurso/{idAsig}/{idTipoNota}','DocenteCursoController@list')->name('NotaList');//controlar
 
 
