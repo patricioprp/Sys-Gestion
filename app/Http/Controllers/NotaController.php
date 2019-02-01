@@ -13,6 +13,7 @@ use App\Asignatura;
 use App\TipoModalidad;
 use App\ConfiguraMod;
 use App\Nota;
+use Barryvdh\DomPDF\Facade as PDF;
 
 class NotaController extends Controller
 {
@@ -59,6 +60,7 @@ class NotaController extends Controller
          $notas = Nota::where([['ASIGNATURAID','=',$request->asigCurso],['TIPONOTAID','=',$request->tipoNota],
          ['IDMODALIDAD','=',$modalidad->IDMODALIDAD]])->get();
 
+
          foreach($notas as $n){
            $anio = $n->ANIO;
            $nivel = $n->division->IDNIVELES;
@@ -103,6 +105,42 @@ class NotaController extends Controller
                                    ->with('asignatura',$asignatura)
                                    ->with('idAsig',$idAsig)
                                    ->with('idTipoNota',$idTipoNota);
+    }
+
+    public function pdf($idAsig,$idTipoNota)
+    {
+
+
+        $tipoNota = TipoNota::find($idTipoNota);
+
+        $modalidad = Modalidad::find($tipoNota->IDMODALIDAD);
+
+        $configuraMod = ConfiguraMod::where([['IDMODALIDAD','=',$modalidad->IDMODALIDAD],['ACTIVO','=','S']])->get();
+
+        $asignatura = Asignatura::find($idAsig);
+
+        if($configuraMod)
+        {
+         $notas = Nota::where([['ASIGNATURAID','=',$idAsig],['TIPONOTAID','=',$idTipoNota],
+         ['IDMODALIDAD','=',$modalidad->IDMODALIDAD]])->get();
+
+         foreach($notas as $n){
+            $anio = $n->ANIO;
+            $nivel = $n->division->IDNIVELES;
+            $division = $n->division->ABREVIA;
+            $idDiv = $n->division->IDDIVISION;
+         }
+         $pdf = PDF::loadView('notas.pdf.Notas')->with('notas',$notas)
+                                     ->with('anio',$anio)
+                                     ->with('asignatura',$asignatura)
+                                     ->with('idDiv',$idDiv)
+                                     ->with('nivel',$nivel)
+                                     ->with('division',$division)
+                                     ->with('idTipoNota',$idTipoNota);
+                                    // $pdf = PDF::loadView('pdf.products', compact('products'));
+
+                                     return $pdf->download('listado.pdf');
+        }
     }
     /**
      * Show the form for editing the specified resource.

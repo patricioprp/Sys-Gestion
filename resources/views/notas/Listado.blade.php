@@ -9,9 +9,14 @@
       <div class="panel-heading">
         <div class="row">
             <h5>Asignatura:{{$asignatura->NOMBRE}}  - Año:{{$anio}}  - Nivel:{{$nivel}}  - Division:{{$division}}  </h5>
-
             {!! Form::hidden('idDiv', $idDiv) !!}
         </div>
+        <hr>
+        <p>
+            <a href="{{ route('Notas.pdf',['idAsig' => $asignatura->ASIGNATURAID, 'idTipoNota' =>$idTipoNota]) }}" class="btn btn-sm btn-primary">
+                Descargar Notas en PDF
+            </a>
+        </p>
       </div>
 <p>
 <div class="col-xs-12">
