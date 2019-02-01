@@ -130,13 +130,8 @@ class NotaController extends Controller
             $division = $n->division->ABREVIA;
             $idDiv = $n->division->IDDIVISION;
          }
-         $pdf = PDF::loadView('notas.pdf.Notas')->with('notas',$notas)
-                                     ->with('anio',$anio)
-                                     ->with('asignatura',$asignatura)
-                                     ->with('idDiv',$idDiv)
-                                     ->with('nivel',$nivel)
-                                     ->with('division',$division)
-                                     ->with('idTipoNota',$idTipoNota);
+
+         $pdf = PDF::loadView('notas.pdf.Notas',compact('notas','anio','asignatura','idDiv','nivel','division','idTipoNota'));
                                     // $pdf = PDF::loadView('pdf.products', compact('products'));
 
                                      return $pdf->download('listado.pdf');
