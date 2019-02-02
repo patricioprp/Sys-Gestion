@@ -46,7 +46,7 @@
           <td>{{$nota->IDDIVISION}}</td>
           <td>{{$nota->TIPONOTAID}}</td>
           <td>{{$nota->IDMODALIDAD}}</td>
-            <td><a href="{{route('NotaView', ['idNota' => $nota->NOTAID, 'idAsig' => $asignatura->ASIGNATURAID, 'idTipoNota' =>$idTipoNota, 'idAsigCurso' =>$idAsigCurso])}}" class="btn btn-success" title="Calificar">Calificar</span></a></td>
+            <td><a href="{{route('NotaView', ['idNota' => $nota->NOTAID, 'idAsig' => $asignatura->ASIGNATURAID, 'idTipoNota' =>$idTipoNota, 'idAsigCurso' =>$idAsigCurso])}}" class="btn btn-success" title="Calificar">Ver Calificaciones</span></a></td>
         </tr>
           @endforeach
       </table>

@@ -65,7 +65,8 @@
     </div>
 	<div class="container">
             @include('flash::message')<!--para que se muestren los mensajes con el paquete flash -->
-		@yield('cuerpo')
+        @yield('cuerpo')
+        <div class="panel-footer text-center"><a href="{{asset('/')}}"><img src="{{asset('image/escudo.png')}}" srcset="{{asset('image/escudo.png')}} 2x" width="60"></a> Copyright © {{date("Y")}} - Todos los derechos reservados | Colegio Nueva Concepción</div>
 	</div>
 
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
