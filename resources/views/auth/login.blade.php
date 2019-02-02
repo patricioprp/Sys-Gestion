@@ -3,6 +3,9 @@
 @section('cuerpo')
 <div class="container">
     <div class="row justify-content-center">
+        <div>
+            <img src="{{ asset('image/logo.png') }}" alt="Logo">
+        </div>
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header" style="background-color:#14703f;"><b>{{ __('Login') }}</b></div>
@@ -10,7 +13,6 @@
                 <div class="card-body">
                     <form method="POST" action="{{ route('login') }}" aria-label="{{ __('Login') }}">
                         @csrf
-
                         <div class="form-group row">
                             <label for="email" class="col-sm-4 col-form-label text-md-right">{{ __('Direccion de E-Mail') }}</label>
 

@@ -1,11 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-        <style>
-        #blanco{color:white;}
-        </style>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-	<title> Sistema de gestión - @yield('titulo')</title>
+    <title> Sistema de gestión - @yield('titulo')</title>
+    <link rel="stylesheet" href="{{ asset('css/estilos.css')}}">
 </head>
 <body>
     <div class="row">

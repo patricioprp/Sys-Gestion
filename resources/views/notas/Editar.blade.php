@@ -10,7 +10,7 @@
             <h3><b>Alumno:</b> {{$nota->alumno->NOMBRES}}-{{$nota->alumno->APELLIDOS}}</h3>
         </div>
         <div class="alert alert-success" role="alert">
-              <b>Asignatura: </b>{{$asignatura->NOMBRE}}
+              <b>{{$asignatura->NOMBRE}}</b>
         </div>
           <h3>Nota :{!! Form::text('nota', $nota->NOTA) !!}</h3>
           {!! Form::hidden('idAsig', $idAsig) !!}
