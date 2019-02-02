@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-
+        <style>
+        #blanco{color:white;}
+        </style>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 	<title> Sistema de gestión - @yield('titulo')</title>
 </head>
@@ -12,7 +14,7 @@
 
     <div class="col-md-8">
         <div id="app">
-            <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+            <nav class="navbar navbar-expand-lg navbar-dark bg-default" style="background-color:#14703f;">
                 <div class="container">
     				<a class="navbar-brand" href="#">Sys-Gestión Notas</a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
@@ -30,7 +32,7 @@
                             <!-- Authentication Links -->
                             @guest
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                                    <a class="nav-link" href="{{ route('login') }}"><b>{{ __('Login') }}</b></a>
                                 </li>
 
                             @else

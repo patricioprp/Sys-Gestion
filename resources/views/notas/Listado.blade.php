@@ -23,17 +23,17 @@
 <div class="table-responsive">
       <!-- Table -->
       <table class="table table-bordered table-condensed table-striped table-responsive table-hover">
-        <tr>
-          <th>#</th>
-          <th>APELLIDO</th>
-          <th>NOMBRE</th>
-          <th>NOTA</th>
-          <th>AÑO</th>
-          <th>NIVEL</th>
-          <th>DIVISION</th>
-          <th>TIPO NOTA</th>
-          <th>MODALIDAD</th>
-          <th>ACCION</th>
+        <tr style="background-color:#14703f;">
+          <th id="blanco">#</th>
+          <th id="blanco">APELLIDO</th>
+          <th id="blanco">NOMBRE</th>
+          <th id="blanco">NOTA</th>
+          <th id="blanco">AÑO</th>
+          <th id="blanco">NIVEL</th>
+          <th id="blanco">DIVISION</th>
+          <th id="blanco">TIPO NOTA</th>
+          <th id="blanco">MODALIDAD</th>
+          <th id="blanco">ACCION</th>
         </tr>
 
           @foreach ($notas as $nota)
