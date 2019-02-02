@@ -15,6 +15,7 @@
           <h3>Nota :{!! Form::text('nota', $nota->NOTA) !!}</h3>
           {!! Form::hidden('idAsig', $idAsig) !!}
           {!! Form::hidden('idDiv', $idTipoNota) !!}
+          {!! Form::hidden('idAsigCurso', $idAsigCurso) !!}
           {!! Form::submit('Editar',['class'=>'btn btn-primary']) !!}
      </div>
 {!! Form::close() !!}

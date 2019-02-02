@@ -12,6 +12,7 @@ use App\Asignatura;
 use App\TipoModalidad;
 use App\ConfiguraMod;
 use App\Nota;
+use App\AsignaturaCurso;
 class DocenteCursoController extends Controller
 {
     /**
@@ -29,7 +30,6 @@ class DocenteCursoController extends Controller
         $Docente=Auth::user();
 
         $docenteCursos = $Docente->asignaturas;
-
         foreach($docenteCursos as $dc){
         $n=$dc->asignatura->tipoModalidad->modalidades;
         foreach($n as $n2){
@@ -46,9 +46,10 @@ class DocenteCursoController extends Controller
         return redirect(route('inicio'));
     }
 
-    public function getModalidad(Request $request,$ASIGNATURAID){
+    public function getModalidad(Request $request,$ASIGNATURACURSOID){
         if($request->ajax()){
-            $asignatura = Asignatura::find($ASIGNATURAID);
+            $ac = AsignaturaCurso::find($ASIGNATURACURSOID);
+            $asignatura = Asignatura::find($ac->ASIGNATURAID);
             $IDTIPOMODALIDAD =$asignatura->IDTIPOMODALIDAD;
             $idtipomodalidad = TipoModalidad::find($IDTIPOMODALIDAD);
             $modalidads = Modalidad::modalidad($idtipomodalidad->IDTIPOMODALIDAD);
@@ -74,61 +75,26 @@ class DocenteCursoController extends Controller
     public function store(Request $request)
     {
 
-        $tipoNota = TipoNota::find($request->tipoNota);
-
-        $modalidad = Modalidad::find($tipoNota->IDMODALIDAD);
-
-        $configuraMod = ConfiguraMod::where([['IDMODALIDAD','=',$modalidad->IDMODALIDAD],['ACTIVO','=','S']])->get();
-
-        $asignatura = Asignatura::find($request->asigCurso);
-
-        if($configuraMod)
-        {
-         $notas = Nota::where([['ASIGNATURAID','=',$request->asigCurso],['TIPONOTAID','=',$request->tipoNota],
-         ['IDMODALIDAD','=',$modalidad->IDMODALIDAD]])->get();
-
-         foreach($notas as $n){
-           $nivel = $n->division->IDNIVELES;
-          $division = $n->division->ABREVIA;
-          $idDiv = $n->division->IDDIVISION;
-         }
-         return view('notas.Listado')->with('notas',$notas)
-                                     ->with('asignatura',$asignatura)
-                                     ->with('idDiv',$idDiv)
-                                     ->with('nivel',$nivel)
-                                     ->with('division',$division);
-        }
-
     }
 
-   public function list($idAsig, $idTipoNota){
-
+   public function list($idAsig, $idTipoNota, $idAsigCurso){
 
     $tipoNota = TipoNota::find($idTipoNota);
 
     $modalidad = Modalidad::find($tipoNota->IDMODALIDAD);
 
-    $configuraMod = ConfiguraMod::where([['IDMODALIDAD','=',$modalidad->IDMODALIDAD],['ACTIVO','=','S']])->get();
-
-    $asignatura = Asignatura::find($idAsig);
+    $asignaturaCurso = AsignaturaCurso::find($idAsigCurso);
+    $asignatura = Asignatura::find($asignaturaCurso->ASIGNATURAID);
+    $configuraMod = ConfiguraMod::where([['IDMODALIDAD','=',$modalidad->IDMODALIDAD],['ACTIVO','=','S'],['ANO','=',$asignaturaCurso->ANIO]])->get();
 
     if($configuraMod)
     {
-     $notas = Nota::where([['ASIGNATURAID','=',$idAsig],['TIPONOTAID','=',$idTipoNota],
+     $notas = Nota::where([['ASIGNATURAID','=',$asignaturaCurso->ASIGNATURAID],['IDDIVISION','=',$asignaturaCurso->IDDIVISION],['ANIO','=',$asignaturaCurso->ANIO],['TIPONOTAID','=',$idTipoNota],
      ['IDMODALIDAD','=',$modalidad->IDMODALIDAD]])->get();
 
-     foreach($notas as $n){
-        $anio = $n->ANIO;
-        $nivel = $n->division->IDNIVELES;
-        $division = $n->division->ABREVIA;
-        $idDiv = $n->division->IDDIVISION;
-     }
      return view('notas.Listado')->with('notas',$notas)
-                                 ->with('anio',$anio)
                                  ->with('asignatura',$asignatura)
-                                 ->with('idDiv',$idDiv)
-                                 ->with('nivel',$nivel)
-                                 ->with('division',$division)
+                                 ->with('idAsigCurso',$idAsigCurso)
                                  ->with('idTipoNota',$idTipoNota);
     }
     }

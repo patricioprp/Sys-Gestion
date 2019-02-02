@@ -1,6 +1,6 @@
 
 $("#asigCurso").change(function(event){
-    $.get("asignatura/"+event.target.value+"",function(response, asigCurso){
+    $.get("asignaturaCurso/"+event.target.value+"",function(response, asigCurso){
       $("#modalidad").empty();
       for(i=0;i<response.length;i++){
       $("#modalidad").append("<option value='"+response[i].IDMODALIDAD+"'> "+response[i].DESCRIPCION+"</option>");

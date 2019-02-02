@@ -14,9 +14,14 @@ use App\TipoModalidad;
 use App\ConfiguraMod;
 use App\Nota;
 use Barryvdh\DomPDF\Facade as PDF;
+use App\AsignaturaCurso;
 
 class NotaController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -24,9 +29,7 @@ class NotaController extends Controller
      */
     public function index()
     {
-
-
-
+          //
     }
 
     /**
@@ -51,28 +54,18 @@ class NotaController extends Controller
 
         $modalidad = Modalidad::find($tipoNota->IDMODALIDAD);
 
-        $configuraMod = ConfiguraMod::where([['IDMODALIDAD','=',$modalidad->IDMODALIDAD],['ACTIVO','=','S'],['ANO','=',date("Y")]])->get();
-
-        $asignatura = Asignatura::find($request->asigCurso);
+        $asignaturaCurso = AsignaturaCurso::find($request->asigCurso);
+        $asignatura = Asignatura::find($asignaturaCurso->ASIGNATURAID);
+        $configuraMod = ConfiguraMod::where([['IDMODALIDAD','=',$modalidad->IDMODALIDAD],['ACTIVO','=','S'],['ANO','=',$asignaturaCurso->ANIO]])->get();
 
         if($configuraMod)
         {
-         $notas = Nota::where([['ASIGNATURAID','=',$request->asigCurso],['TIPONOTAID','=',$request->tipoNota],
+         $notas = Nota::where([['ASIGNATURAID','=',$asignaturaCurso->ASIGNATURAID],['IDDIVISION','=',$asignaturaCurso->IDDIVISION],['ANIO','=',$asignaturaCurso->ANIO],['TIPONOTAID','=',$request->tipoNota],
          ['IDMODALIDAD','=',$modalidad->IDMODALIDAD]])->get();
 
-
-         foreach($notas as $n){
-           $anio = $n->ANIO;
-           $nivel = $n->division->IDNIVELES;
-          $division = $n->division->ABREVIA;
-          $idDiv = $n->division->IDDIVISION;
-         }
          return view('notas.Listado')->with('notas',$notas)
                                      ->with('asignatura',$asignatura)
-                                     ->with('anio',$anio)
-                                     ->with('nivel',$nivel)
-                                     ->with('idDiv',$idDiv)
-                                     ->with('division',$division)
+                                     ->with('idAsigCurso',$request->asigCurso)
                                      ->with('idTipoNota',$request->tipoNota);
         }
 
@@ -87,51 +80,37 @@ class NotaController extends Controller
      */
     public function show($id)
     {
-        /* $tablanotas = nota::join('ASIGNATURA', 'ASIGNATURA.ASIGNATURAID', '=', 'NOTAS.ASIGNATURAID')
-        ->join('ALUMNOS', 'ALUMNOS.IDALUMNO', '=', 'NOTAS.IDALUMNO')
-        ->select('NOTAS.*', 'ASIGNATURA.NOMBRE AS MATERIA', 'ALUMNOS.APELLIDOS AS APELLIDO','ALUMNOS.NOMBRES AS NOMBRE')
-        ->find($id);
-        return view('notas.editar',compact('tablanotas'));*/
-        $nota = Nota::find($id);
-        return view('notas.Editar')->with('nota',$nota);
-
+           //
     }
 
-    public function view($idNota,$idAsig,$idTipoNota)
+    public function view($idNota,$idAsig,$idTipoNota,$idAsigCurso)
     {
         $nota = Nota::find($idNota);
         $asignatura = Asignatura::find($idAsig);
         return view('notas.Editar')->with('nota',$nota)
                                    ->with('asignatura',$asignatura)
+                                   ->with('idAsigCurso',$idAsigCurso)
                                    ->with('idAsig',$idAsig)
                                    ->with('idTipoNota',$idTipoNota);
     }
 
-    public function pdf($idAsig,$idTipoNota)
+    public function pdf($idAsig,$idTipoNota,$idAsigCurso)
     {
-
 
         $tipoNota = TipoNota::find($idTipoNota);
 
         $modalidad = Modalidad::find($tipoNota->IDMODALIDAD);
 
-        $configuraMod = ConfiguraMod::where([['IDMODALIDAD','=',$modalidad->IDMODALIDAD],['ACTIVO','=','S']])->get();
-
-        $asignatura = Asignatura::find($idAsig);
+        $asignaturaCurso = AsignaturaCurso::find($idAsigCurso);
+        $asignatura = Asignatura::find($asignaturaCurso->ASIGNATURAID);
+        $configuraMod = ConfiguraMod::where([['IDMODALIDAD','=',$modalidad->IDMODALIDAD],['ACTIVO','=','S'],['ANO','=',$asignaturaCurso->ANIO]])->get();
 
         if($configuraMod)
         {
-         $notas = Nota::where([['ASIGNATURAID','=',$idAsig],['TIPONOTAID','=',$idTipoNota],
+         $notas = Nota::where([['ASIGNATURAID','=',$asignaturaCurso->ASIGNATURAID],['IDDIVISION','=',$asignaturaCurso->IDDIVISION],['ANIO','=',$asignaturaCurso->ANIO],['TIPONOTAID','=',$idTipoNota],
          ['IDMODALIDAD','=',$modalidad->IDMODALIDAD]])->get();
 
-         foreach($notas as $n){
-            $anio = $n->ANIO;
-            $nivel = $n->division->IDNIVELES;
-            $division = $n->division->ABREVIA;
-            $idDiv = $n->division->IDDIVISION;
-         }
-
-         $pdf = PDF::loadView('notas.pdf.Notas',compact('notas','anio','asignatura','idDiv','nivel','division','idTipoNota'));
+         $pdf = PDF::loadView('notas.pdf.Notas',compact('notas','asignatura','idAsigCurso','idTipoNota'));
                                     // $pdf = PDF::loadView('pdf.products', compact('products'));
 
                                      return $pdf->download('listado.pdf');
@@ -145,7 +124,7 @@ class NotaController extends Controller
      */
     public function edit($id)
     {
-
+     //
     }
 
     /**
@@ -163,7 +142,8 @@ class NotaController extends Controller
 
          $nota->NOTA = $request->nota;
         $nota->save();
-        return redirect()->action('DocenteCursoController@list',['idDiv'=>$request->idDiv,'idAsig'=>$request->idAsig]);
+        flash("Nota cargada correctametne")->important();
+        return redirect()->action('DocenteCursoController@list',['idDiv'=>$request->idDiv,'idAsig'=>$request->idAsig, 'idAsigCurso'=>$request->idAsigCurso]);
       // return redirect()->back();
 
 
@@ -178,28 +158,6 @@ class NotaController extends Controller
     public function destroy($id)
     {
         //
-    }
-    public function detallenotas(Request $request)
-    {
-        $seleccion=$request->input('control1');
-        $anio=$request->input('ano');
-        $modali=$request->input('control2');
-        $tipono=$request->input('control3');
-
-        $tablanotas = nota::join('ASIGNATURA', 'ASIGNATURA.ASIGNATURAID', '=', 'NOTAS.ASIGNATURAID')
-        ->join('ALUMNOS', 'ALUMNOS.IDALUMNO', '=', 'NOTAS.IDALUMNO')
-        ->select('NOTAS.*', 'ASIGNATURA.NOMBRE AS MATERIA', 'ALUMNOS.APELLIDOS AS APELLIDO','ALUMNOS.NOMBRES AS NOMBRE')
-        ->where('NOTAS.ASIGNATURACURSOID','=',$seleccion)
-        ->where('NOTAS.IDMODALIDAD','=',$modali)
-        ->where('NOTAS.TIPONOTAID','=',$tipono)
-        ->get();
-        return view('notas.vernotas',compact('tablanotas'));
-
-    }
-
-    public function __construct()
-    {
-        $this->middleware('auth');
     }
 
 }

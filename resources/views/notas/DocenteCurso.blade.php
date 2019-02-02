@@ -7,16 +7,16 @@
 
 <div class="form-group">
 <div class="row">
-    <label for="ano">Año</label>
-    <input type="text" class="form-control" name="ano" value={{date("Y")}}>
+     <!--  <label for="ano">Año</label>
+ <input type="text" class="form-control" name="ano" value="2015"> -->
 </div>
 <p>
 <div class="row">
     <select class="form-control" id="asigCurso" name="asigCurso">
             <option value="" disabled selected>Seleccione una Asignatura</option>
         @foreach($docenteCursos as $docCurso)
-            <option value={{ $docCurso->asignatura->ASIGNATURAID}}>{{ $docCurso->ANIO }} - {{ $docCurso->IDNIVELES }} - {{ $docCurso->IDDIVISION }} - {{$docCurso->asignatura->NOMBRE}}-{{ $docCurso->asignatura->ASIGNATURAID}}</option>
-        @endforeach
+            <option value={{ $docCurso->ASIGNATURACURSOID}}>{{ $docCurso->ANIO }} - {{ $docCurso->IDNIVELES }} - {{ $docCurso->IDDIVISION }} - {{$docCurso->asignatura->NOMBRE}}-{{ $docCurso->asignatura->ASIGNATURAID}}</option>
+            @endforeach
     </select>
 </div>
 </p>
