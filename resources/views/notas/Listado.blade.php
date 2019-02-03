@@ -12,7 +12,7 @@
         </div>
         <hr>
         <p>
-            <a href="{{ route('Notas.pdf',['idAsig' => $asignatura->ASIGNATURAID, 'idTipoNota' =>$idTipoNota, 'idAsigCurso' =>$idAsigCurso]) }}" class="btn btn-sm btn-primary">
+            <a href="{{ route('Notas.pdf',['idAsig' => $asignatura->ASIGNATURAID, 'idTipoNota' =>$idTipoNota, 'idAsigCurso' =>$idAsigCurso]) }}" class="btn btn-info btn-lg">
                 Descargar Notas en PDF
             </a>
         </p>
@@ -30,8 +30,6 @@
           <th>AÑO</th>
           <th>NIVEL</th>
           <th>DIVISION</th>
-          <th>TIPO NOTA</th>
-          <th>MODALIDAD</th>
           <th>ACCION</th>
         </tr>
 
@@ -42,11 +40,9 @@
             <td>{{$nota->alumno->NOMBRES}}</td>
             <td>{{$nota->NOTA}}</td>
             <td>{{$nota->ANIO}}</td>
-          <td>{{$nota->IDNIVELES}}</td>
-          <td>{{$nota->IDDIVISION}}</td>
-          <td>{{$nota->TIPONOTAID}}</td>
-          <td>{{$nota->IDMODALIDAD}}</td>
-            <td><a href="{{route('NotaView', ['idNota' => $nota->NOTAID, 'idAsig' => $asignatura->ASIGNATURAID, 'idTipoNota' =>$idTipoNota, 'idAsigCurso' =>$idAsigCurso])}}" class="btn btn-success" title="Calificar">Ver Calificaciones</span></a></td>
+            <td>{{$nota->IDNIVELES}}</td>
+            <td>{{$nota->IDDIVISION}}</td>
+            <td><a href="{{route('NotaView', ['idNota' => $nota->NOTAID, 'idAsig' => $asignatura->ASIGNATURAID, 'idTipoNota' =>$idTipoNota, 'idAsigCurso' =>$idAsigCurso])}}" class="btn btn-warning" title="Calificar"><b>Editar Nota</b></span></a></td>
         </tr>
           @endforeach
       </table>
