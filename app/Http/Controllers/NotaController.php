@@ -63,6 +63,9 @@ class NotaController extends Controller
 
         if($configuraMod)
         {
+          /*  if($asignatura->NOTAADICIONAL=="S"){
+         return view('notaAdicional.show');
+            }*/
          $notas = Nota::where([['ASIGNATURAID','=',$asignaturaCurso->ASIGNATURAID],['IDDIVISION','=',$asignaturaCurso->IDDIVISION],['ANIO','=',$asignaturaCurso->ANIO],['TIPONOTAID','=',$request->tipoNota],
          ['IDMODALIDAD','=',$modalidad->IDMODALIDAD]])->get();
 

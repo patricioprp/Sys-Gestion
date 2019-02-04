@@ -8,7 +8,7 @@
         </div>
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header" style="background-color:#14703f;"><b>{{ __('Login') }}</b></div>
+                <div class="card-header" style="background-color:#14703f;"><b>{{ __('INGRESAR') }}</b></div>
 
                 <div class="card-body">
                     <form method="POST" action="{{ route('login') }}" aria-label="{{ __('Login') }}">
@@ -56,7 +56,7 @@
                         <div class="form-group row mb-0">
                             <div class="col-md-8 offset-md-4">
                                 <button type="submit" class="btn btn-primary">
-                                    {{ __('Login') }}
+                                    {{ __('Aceptar') }}
                                 </button>
 
                                 <a class="btn btn-link" href="{{ route('password.request') }}">

@@ -30,7 +30,7 @@
                             <!-- Authentication Links -->
                             @guest
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('login') }}"><b>{{ __('Login') }}</b></a>
+                                    <a class="nav-link" href="{{ route('login') }}"><b>{{ __('INGRESAR') }}</b></a>
                                 </li>
 
                             @else
@@ -43,7 +43,7 @@
                                         <a class="dropdown-item" href="{{ route('logout') }}"
                                            onclick="event.preventDefault();
                                                          document.getElementById('logout-form').submit();">
-                                            {{ __('Logout') }}
+                                            {{ __('SALIR') }}
                                         </a>
 
                                         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
