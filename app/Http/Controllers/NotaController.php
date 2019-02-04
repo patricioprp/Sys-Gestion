@@ -15,6 +15,7 @@ use App\ConfiguraMod;
 use App\Nota;
 use Barryvdh\DomPDF\Facade as PDF;
 use App\AsignaturaCurso;
+use Carbon\Carbon;
 
 class NotaController extends Controller
 {
@@ -55,7 +56,9 @@ class NotaController extends Controller
         $modalidad = Modalidad::find($tipoNota->IDMODALIDAD);
 
         $asignaturaCurso = AsignaturaCurso::find($request->asigCurso);
+
         $asignatura = Asignatura::find($asignaturaCurso->ASIGNATURAID);
+
         $configuraMod = ConfiguraMod::where([['IDMODALIDAD','=',$modalidad->IDMODALIDAD],['ACTIVO','=','S'],['ANO','=',$asignaturaCurso->ANIO]])->get();
 
         if($configuraMod)
@@ -66,7 +69,8 @@ class NotaController extends Controller
          return view('notas.Listado')->with('notas',$notas)
                                      ->with('asignatura',$asignatura)
                                      ->with('idAsigCurso',$request->asigCurso)
-                                     ->with('idTipoNota',$request->tipoNota);
+                                     ->with('idTipoNota',$request->tipoNota)
+                                     ->with('tipoNota',$tipoNota);
         }
 
     }
@@ -102,16 +106,22 @@ class NotaController extends Controller
         $modalidad = Modalidad::find($tipoNota->IDMODALIDAD);
 
         $asignaturaCurso = AsignaturaCurso::find($idAsigCurso);
+
         $asignatura = Asignatura::find($asignaturaCurso->ASIGNATURAID);
+
         $configuraMod = ConfiguraMod::where([['IDMODALIDAD','=',$modalidad->IDMODALIDAD],['ACTIVO','=','S'],['ANO','=',$asignaturaCurso->ANIO]])->get();
 
+        $now = Carbon::now();
+
+        $date = $now->format('d-m-Y');
+
+        $time = $now->format('H:i:s');
         if($configuraMod)
         {
          $notas = Nota::where([['ASIGNATURAID','=',$asignaturaCurso->ASIGNATURAID],['IDDIVISION','=',$asignaturaCurso->IDDIVISION],['ANIO','=',$asignaturaCurso->ANIO],['TIPONOTAID','=',$idTipoNota],
          ['IDMODALIDAD','=',$modalidad->IDMODALIDAD]])->get();
 
-         $pdf = PDF::loadView('notas.pdf.Notas',compact('notas','asignatura','idAsigCurso','idTipoNota'));
-                                    // $pdf = PDF::loadView('pdf.products', compact('products'));
+         $pdf = PDF::loadView('notas.pdf.Notas',compact('notas','asignatura','idAsigCurso','tipoNota','date','time'));
 
                                      return $pdf->download('listado.pdf');
         }
@@ -136,14 +146,23 @@ class NotaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //dd($request->all());
-        //dd($id);
         $nota=Nota::findorfail($id);
+        if(is_numeric ( $request->nota )){
+         if($request->nota> "0" && $request->nota< "11"){
+            $nota->NOTA = $request->nota;
+            $nota->save();
+            flash("Nota cargada correctamente")->important();
+            return redirect()->action('DocenteCursoController@list',['idDiv'=>$request->idDiv,'idAsig'=>$request->idAsig, 'idAsigCurso'=>$request->idAsigCurso]);
+         }
+         else{
+            flash("Nota no puede ser mayor a 10 ni menor a 1")->error();
+            return redirect()->back();
+         }
+        }
+      /*  if(is_string ( $request->nota )){
+            dd('es una letra');
+        }*/
 
-         $nota->NOTA = $request->nota;
-        $nota->save();
-        flash("Nota cargada correctametne")->important();
-        return redirect()->action('DocenteCursoController@list',['idDiv'=>$request->idDiv,'idAsig'=>$request->idAsig, 'idAsigCurso'=>$request->idAsigCurso]);
       // return redirect()->back();
 
 

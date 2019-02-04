@@ -7,16 +7,25 @@
     <div class="panel panel-default">
       <!-- Default panel contents -->
       <div class="panel-heading">
-        <div class="alert alert-success" role="alert">
-            <h5>{{$asignatura->NOMBRE}} </h5>
-        </div>
+          <div class="row">
+              <div class="alert alert-success" role="alert">
+                  <h5>{{$asignatura->NOMBRE}} </h5>
+               </div>
+               <div class="alert alert-primary" role="alert">
+                   <h5><strong>TIPO DE NOTA: {{$tipoNota->DESCRIPCION}}</strong></h5>
+               </div>
+               <div class="alert alert-info" role="alert">
+               <h5><strong>MODALIDAD: {{$tipoNota->modalidad->DESCRIPCION}}</strong></h5>
+               </div>
+           </div>
         <hr>
-        <p>
+       <div class="row">
             <a href="{{ route('Notas.pdf',['idAsig' => $asignatura->ASIGNATURAID, 'idTipoNota' =>$idTipoNota, 'idAsigCurso' =>$idAsigCurso]) }}" class="btn btn-info btn-lg">
                 Descargar Notas en PDF
             </a>
-        </p>
       </div>
+      </div>
+    </div>
 <p>
 <div class="col-xs-12">
 <div class="table-responsive">

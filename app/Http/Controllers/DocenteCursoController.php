@@ -95,7 +95,8 @@ class DocenteCursoController extends Controller
      return view('notas.Listado')->with('notas',$notas)
                                  ->with('asignatura',$asignatura)
                                  ->with('idAsigCurso',$idAsigCurso)
-                                 ->with('idTipoNota',$idTipoNota);
+                                 ->with('idTipoNota',$idTipoNota)
+                                 ->with('tipoNota',$tipoNota);
     }
     }
 

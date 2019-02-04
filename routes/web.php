@@ -23,6 +23,6 @@ Route::get('tipoNota/{IDMODALIDAD}','ModalidadController@getTipoNota');//para el
 Route::resource('Nota','NotaController');
 Route::get('Nota/{idNota}/{idAsig}/{idTipoNota}/{idAsigCurso}','NotaController@view')->name('NotaView');
 Route::get('DocenteCurso/{idAsig}/{idTipoNota}/{idAsigCurso}','DocenteCursoController@list')->name('NotaList');
-Route::get('descargar-notas/{idAsig}/{idTipoNota}/{idAsigCurso}', 'NotaController@pdf')->name('Notas.pdf');
+Route::get('descargar-notas/{idAsig}/{tipoNota}/{idAsigCurso}', 'NotaController@pdf')->name('Notas.pdf');
 
 
