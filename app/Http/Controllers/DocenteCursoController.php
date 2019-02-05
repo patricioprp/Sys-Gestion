@@ -13,6 +13,7 @@ use App\TipoModalidad;
 use App\ConfiguraMod;
 use App\Nota;
 use App\AsignaturaCurso;
+
 class DocenteCursoController extends Controller
 {
     /**
@@ -30,13 +31,14 @@ class DocenteCursoController extends Controller
         $Docente=Auth::user();
 
         $docenteCursos = $Docente->asignaturas;
+       // dd($docenteCursos);
         foreach($docenteCursos as $dc){
         $n=$dc->asignatura->tipoModalidad->modalidades;
         foreach($n as $n2){
          $M=$n2->configuraMods;
          foreach($M as $m){
             // dump($m->IDCONFIGURAMOD);
-         if($m->ACTIVO=="S"){
+         if($m->ACTIVO=="S"&&$m->ANO=="2015"){
             return view('notas.DocenteCurso')->with('docenteCursos',$docenteCursos);
          }
          }
