@@ -16,6 +16,7 @@ use App\Nota;
 use Barryvdh\DomPDF\Facade as PDF;
 use App\AsignaturaCurso;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Collection;
 
 class NotaController extends Controller
 {

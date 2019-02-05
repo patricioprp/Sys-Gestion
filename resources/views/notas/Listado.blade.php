@@ -1,3 +1,4 @@
+
 @extends('layouts.principal')
 
 @section('titulo','Listado de notas')
@@ -58,4 +59,5 @@
     </div>
     </div>
 </p>
+
 @endsection
