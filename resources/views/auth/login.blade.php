@@ -8,7 +8,7 @@
         </div>
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header" style="background-color:#14703f;"><b>{{ __('INGRESAR') }}</b></div>
+                <div class="card-header" style="background-color:#14703f; color:white;"><b>{{ __('INGRESAR') }}</b></div>
 
                 <div class="card-body">
                     <form method="POST" action="{{ route('login') }}" aria-label="{{ __('Login') }}">
