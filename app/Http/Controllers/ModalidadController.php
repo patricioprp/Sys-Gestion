@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-//use App\modalidad;
 use App\Modalidad;
 use App\TipoNota;
 
@@ -14,14 +13,6 @@ class ModalidadController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function byProject($id)
-    {
-        return modalidad::join('ASIGNATURACURSO','ASIGNATURACURSO.IDTIPOMODALIDAD','=','MODALIDAD.IDTIPOMODALIDAD')
-        ->select('MODALIDAD.*')
-        ->where('ASIGNATURACURSO.ASIGNATURACURSOID',$id)
-        ->get();
-
-    }
 
     public function getTipoNota(Request $request,$IDMODALIDAD){
         if($request->ajax()){

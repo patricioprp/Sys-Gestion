@@ -21,6 +21,6 @@ class Nivel extends Model
       }
 
       public function asigCursos(){
-        return $this->hasMany('\App\AsignaturaCurso','ASIGNATURACURSOID');
+        return $this->hasMany('\App\AsignaturaCurso','ASIGNATURACURSOID');// esta repetido
       }
 }

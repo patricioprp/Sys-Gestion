@@ -12,23 +12,23 @@
 </div>
 <p>
 <div class="row">
-    <select class="form-control" id="asigCurso" name="asigCurso">
-            <option value="" disabled selected>Seleccione una Asignatura</option>
-        @foreach($docenteCursos as $docCurso)
-            <option value={{ $docCurso->ASIGNATURACURSOID}}>{{ $docCurso->ANIO }} - {{ $docCurso->IDNIVELES }} - {{ $docCurso->IDDIVISION }} - {{$docCurso->asignatura->NOMBRE}}-{{ $docCurso->asignatura->ASIGNATURAID}}</option>
-            @endforeach
-    </select>
-</div>
-</p>
-<p>
-<div class="row">
-        {!! Form::select('modalidad',['placeholder'=>'Seleccion una Modalidad'],null,['class'=>'form-control','id'=>'modalidad'])!!}
+    <select class="form-control" id="modalidad" name="modalidad">
+        <option value="" disabled selected>Seleccione una Modalidad</option>
+    @foreach($configuraMods as $configuraMod)
+        <option value={{$configuraMod->modalidad->IDMODALIDAD}}>{{ $configuraMod->modalidad->DESCRIPCION}} - {{ $configuraMod->modalidad->IDMODALIDAD}} </option>
+        @endforeach
+</select>
 </div>
 </p>
 <div class="row">
         {!! Form::select('tipoNota',['placeholder'=>'Selecciona un Tipo de Nota'],null,['class'=>'form-control','id'=>'tipoNota'])!!}
 </div>
-  <hr /><hr />
+<p>
+    <div class="row">
+        {!! Form::select('asignaturaCurso',['placeholder'=>'Selecciona la Asignatura'],null,['class'=>'form-control','id'=>'asignaturaCurso'])!!}
+    </div>
+    </p>
+  <hr />
   <div class="row">
       <div class="col-lg-2">
               {!! Form::submit('Buscar',['class'=>'btn btn-primary']) !!}

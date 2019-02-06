@@ -75,8 +75,7 @@
         </div>
     </p>
     <footer>
-    <h4>Fecha de impresion:  {{$date}}</h4>
-    <h4>Hora de impresion:  {{$time}}</h4>
+    <h4>Fecha del Reporte:  {{$date}}</h4>
     </footer>
   </body>
   </html>

@@ -1,9 +1,9 @@
 
-$("#asigCurso").change(function(event){
+$("#tipoNota").change(function(event){
     $.get("asignaturaCurso/"+event.target.value+"",function(response, asigCurso){
-      $("#modalidad").empty();
+      $("#asignaturaCurso").empty();
       for(i=0;i<response.length;i++){
-      $("#modalidad").append("<option value='"+response[i].IDMODALIDAD+"'> "+response[i].DESCRIPCION+"</option>");
+      $("#asignaturaCurso").append("<option value='"+response[i].ASIGNATURAID+"'> "+response[i].NOMBRE+"</option>");
       }
     });
     });

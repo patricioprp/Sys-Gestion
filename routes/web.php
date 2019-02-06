@@ -18,12 +18,12 @@ Route::get('/', function () {
 
 Auth::routes();
 Route::resource('docenteCurso','DocenteCursoController');
-Route::get('asignaturaCurso/{ASIGNATURACURSOID}','DocenteCursoController@getModalidad');//para el select dinamico
 Route::get('tipoNota/{IDMODALIDAD}','ModalidadController@getTipoNota');//para el select dinamico
+Route::get('asignaturaCurso/{TIPONOTAID}','DocenteCursoController@getAsignatura');//para el select dinamico
 Route::resource('Nota','NotaController');
-Route::get('Nota/{idNota}/{idAsig}/{idTipoNota}/{idAsigCurso}','NotaController@view')->name('NotaView');
-Route::get('DocenteCurso/{idAsig}/{idTipoNota}/{idAsigCurso}','DocenteCursoController@list')->name('NotaList');
-Route::get('descargar-notas/{idAsig}/{tipoNota}/{idAsigCurso}', 'NotaController@pdf')->name('Notas.pdf');
+Route::get('Nota/{idNota}/{idAsig}/{idTipoNota}','NotaController@view')->name('NotaView');
+Route::get('DocenteCurso/{idAsig}/{idTipoNota}','DocenteCursoController@list')->name('NotaList');
+Route::get('descargar-notas/{idAsig}/{tipoNota}', 'NotaController@pdf')->name('Notas.pdf');
 Route::resource('NotaAdicional','NotaAdicionalController');
 
 

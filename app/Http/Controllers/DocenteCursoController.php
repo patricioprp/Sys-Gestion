@@ -14,6 +14,7 @@ use App\ConfiguraMod;
 use App\Nota;
 use App\AsignaturaCurso;
 
+
 class DocenteCursoController extends Controller
 {
     /**
@@ -28,34 +29,23 @@ class DocenteCursoController extends Controller
 
     public function index()
     {
-        $Docente=Auth::user();
 
-        $docenteCursos = $Docente->asignaturas;
-       // dd($docenteCursos);
-        foreach($docenteCursos as $dc){
-        $n=$dc->asignatura->tipoModalidad->modalidades;
-        foreach($n as $n2){
-         $M=$n2->configuraMods;
-         foreach($M as $m){
-            // dump($m->IDCONFIGURAMOD);
-         if($m->ACTIVO=="S"&&$m->ANO=="2015"){
-            return view('notas.DocenteCurso')->with('docenteCursos',$docenteCursos);
-         }
-         }
-        }
-        }
-        flash("Usted no tiene Asignaturas con Modalidades Habilitadas para cargar!")->error();
-        return redirect(route('inicio'));
+        $configuraMods = ConfiguraMod::where([['ACTIVO','=','S'],['ANO','=','2018'],['IDMODALIDAD','>','0']])->get();
+        return view('notas.DocenteCurso')->with('configuraMods',$configuraMods);
+
     }
 
-    public function getModalidad(Request $request,$ASIGNATURACURSOID){
+
+    public function getAsignatura(Request $request,$TIPONOTAID){
         if($request->ajax()){
-            $ac = AsignaturaCurso::find($ASIGNATURACURSOID);
-            $asignatura = Asignatura::find($ac->ASIGNATURAID);
-            $IDTIPOMODALIDAD =$asignatura->IDTIPOMODALIDAD;
-            $idtipomodalidad = TipoModalidad::find($IDTIPOMODALIDAD);
-            $modalidads = Modalidad::modalidad($idtipomodalidad->IDTIPOMODALIDAD);
-          return response()->json($modalidads);
+
+            $tipoNota = TipoNota::find($TIPONOTAID);
+
+            $TipoModalidad = $tipoNota->modalidad->tipoModalidad;
+
+            $asignaturas = Asignatura::where('IDTIPOMODALIDAD','=',$TipoModalidad->IDTIPOMODALIDAD)->get();
+
+          return response()->json($asignaturas);
         }
     }
     /**
@@ -79,27 +69,21 @@ class DocenteCursoController extends Controller
 
     }
 
-   public function list($idAsig, $idTipoNota, $idAsigCurso){
+   public function list($idAsig, $idTipoNota){
 
     $tipoNota = TipoNota::find($idTipoNota);
 
     $modalidad = Modalidad::find($tipoNota->IDMODALIDAD);
 
-    $asignaturaCurso = AsignaturaCurso::find($idAsigCurso);
-    $asignatura = Asignatura::find($asignaturaCurso->ASIGNATURAID);
-    $configuraMod = ConfiguraMod::where([['IDMODALIDAD','=',$modalidad->IDMODALIDAD],['ACTIVO','=','S'],['ANO','=',$asignaturaCurso->ANIO]])->get();
+    $asignatura = Asignatura::find($idAsig);
 
-    if($configuraMod)
-    {
-     $notas = Nota::where([['ASIGNATURAID','=',$asignaturaCurso->ASIGNATURAID],['IDDIVISION','=',$asignaturaCurso->IDDIVISION],['ANIO','=',$asignaturaCurso->ANIO],['TIPONOTAID','=',$idTipoNota],
+     $notas = Nota::where([['ASIGNATURAID','=',$asignatura->ASIGNATURAID],['ANIO','=','2018'],['TIPONOTAID','=',$idTipoNota],
      ['IDMODALIDAD','=',$modalidad->IDMODALIDAD]])->get();
 
      return view('notas.Listado')->with('notas',$notas)
                                  ->with('asignatura',$asignatura)
-                                 ->with('idAsigCurso',$idAsigCurso)
                                  ->with('idTipoNota',$idTipoNota)
                                  ->with('tipoNota',$tipoNota);
-    }
     }
 
     /**

@@ -63,7 +63,7 @@ class ResetPasswordNotification extends Notification
             ->action(Lang::getFromJson('Resetear Contraseña'), url(config('app.url').route('password.reset', $this->token, false)))
             ->line(Lang::getFromJson('Si no realizaste esta petición puedes ingnorar este correo.'));*/
         return (new MailMessage)
-            ->greeting('Hola'.$notifiable->name)
+            ->greeting('Hola  '.$notifiable->name)
             ->subject('Notifición de Restablecimiento de Contraseña')
             ->line('Recibes este mail porque solicitaste un reestablecimiento de tu cuenta.')
             ->action('Resetear Contraseña', url(config('app.url').route('password.reset', $this->token, false)))
