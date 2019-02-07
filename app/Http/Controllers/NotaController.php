@@ -55,16 +55,17 @@ class NotaController extends Controller
 
         $modalidad = Modalidad::find($tipoNota->IDMODALIDAD);
 
-        $asignatura = Asignatura::find($request->asignaturaCurso);
+        $asignaturaCurso = AsignaturaCurso::find($request->asignaturaCursoId);
 
-        $configuraMod = ConfiguraMod::where([['IDMODALIDAD','=',$modalidad->IDMODALIDAD],['ACTIVO','=','S'],['ANO','=','2018']])->get();
+        $asignatura = Asignatura::find($asignaturaCurso->asignatura->ASIGNATURAID);
 
-        $notas = Nota::where([['ASIGNATURAID','=',$asignatura->ASIGNATURAID],['ANIO','=','2018'],['TIPONOTAID','=',$request->tipoNota],
-         ['IDMODALIDAD','=',$modalidad->IDMODALIDAD]])->get();
+        $notas = Nota::where([['ASIGNATURAID','=',$asignatura->ASIGNATURAID],['ANIO','=',$asignaturaCurso->ANIO],['TIPONOTAID','=',$request->tipoNota],
+         ['IDMODALIDAD','=',$modalidad->IDMODALIDAD],['ASIGNATURACURSOID','=',$asignaturaCurso->ASIGNATURACURSOID]])->get();
 
          return view('notas.Listado')->with('notas',$notas)
                                      ->with('asignatura',$asignatura)
                                      ->with('idTipoNota',$request->tipoNota)
+                                     ->with('asignaturaCursoId',$asignaturaCurso->ASIGNATURACURSOID)
                                      ->with('tipoNota',$tipoNota);
 
     }
@@ -81,32 +82,35 @@ class NotaController extends Controller
            //
     }
 
-    public function view($idNota,$idAsig,$idTipoNota)
+    public function view($idNota,$idAsig,$idTipoNota,$asignaturaCursoId)
     {
         $nota = Nota::find($idNota);
         $asignatura = Asignatura::find($idAsig);
         return view('notas.Editar')->with('nota',$nota)
                                    ->with('asignatura',$asignatura)
                                    ->with('idAsig',$idAsig)
-                                   ->with('idTipoNota',$idTipoNota);
+                                   ->with('idTipoNota',$idTipoNota)
+                                   ->with('asignaturaCursoId',$asignaturaCursoId);
     }
 
-    public function pdf($idAsig,$idTipoNota)
+    public function pdf($idAsig,$idTipoNota,$asignaturaCursoId)
     {
 
         $tipoNota = TipoNota::find($idTipoNota);
 
         $modalidad = Modalidad::find($tipoNota->IDMODALIDAD);
 
-        $asignatura = Asignatura::find($idAsig);
+        $asignaturaCurso = AsignaturaCurso::find($asignaturaCursoId);
+
+        $asignatura = Asignatura::find($asignaturaCurso->asignatura->ASIGNATURAID);
 
         $now = Carbon::now();
 
         $date = $now->format('d-m-Y');
 
 
-         $notas = Nota::where([['ASIGNATURAID','=',$asignatura->ASIGNATURAID],['ANIO','=','2018'],['TIPONOTAID','=',$idTipoNota],
-         ['IDMODALIDAD','=',$modalidad->IDMODALIDAD]])->get();
+        $notas = Nota::where([['ASIGNATURAID','=',$asignatura->ASIGNATURAID],['ANIO','=',$asignaturaCurso->ANIO],['TIPONOTAID','=',$idTipoNota],
+        ['IDMODALIDAD','=',$modalidad->IDMODALIDAD],['ASIGNATURACURSOID','=',$asignaturaCurso->ASIGNATURACURSOID]])->get();
 
          $pdf = PDF::loadView('notas.pdf.Notas',compact('notas','asignatura','tipoNota','date'));
 
@@ -138,7 +142,7 @@ class NotaController extends Controller
             $nota->NOTA = $request->nota;
             $nota->save();
             flash(" La Nota del Alumno/a ".$nota->alumno->NOMBRES.'-'.$nota->alumno->APELLIDOS." fue editada correctamente!!!")->warning();
-            return redirect()->action('DocenteCursoController@list',['idDiv'=>$request->idDiv,'idAsig'=>$request->idAsig]);
+            return redirect()->action('DocenteCursoController@list',['idDiv'=>$request->idDiv,'idAsig'=>$request->idAsig,'asignaturaCursoId'=>$request->asignaturaCursoId]);
       // return redirect()->back();
 
 

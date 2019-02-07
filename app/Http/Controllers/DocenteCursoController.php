@@ -29,25 +29,19 @@ class DocenteCursoController extends Controller
 
     public function index()
     {
+        $docente = Auth::User();
+        $docenteCursos = DocenteCurso::join('ASIGNATURACURSO','ASIGNATURACURSO.ASIGNATURACURSOID','=','DOCENTECURSO.ASIGNATURACURSOID')
+                                     ->join('ASIGNATURA','ASIGNATURA.ASIGNATURAID','=','ASIGNATURACURSO.ASIGNATURAID')
+                                     ->select('ASIGNATURACURSO.*','ASIGNATURA.IDTIPOMODALIDAD','ASIGNATURA.NOMBRE AS NOMASIGNATURA')
+                                     ->where([['DOCENTECURSO.iddocente','=',$docente->iddocente],['ASIGNATURACURSO.ANIO','=','2018']])->get();
 
         $configuraMods = ConfiguraMod::where([['ACTIVO','=','S'],['ANO','=','2018'],['IDMODALIDAD','>','0']])->get();
-        return view('notas.DocenteCurso')->with('configuraMods',$configuraMods);
+
+        return view('notas.DocenteCurso')->with('configuraMods',$configuraMods)
+                                         ->with('docenteCursos',$docenteCursos);
 
     }
 
-
-    public function getAsignatura(Request $request,$TIPONOTAID){
-        if($request->ajax()){
-
-            $tipoNota = TipoNota::find($TIPONOTAID);
-
-            $TipoModalidad = $tipoNota->modalidad->tipoModalidad;
-
-            $asignaturas = Asignatura::where('IDTIPOMODALIDAD','=',$TipoModalidad->IDTIPOMODALIDAD)->get();
-
-          return response()->json($asignaturas);
-        }
-    }
     /**
      * Show the form for creating a new resource.
      *
@@ -69,21 +63,24 @@ class DocenteCursoController extends Controller
 
     }
 
-   public function list($idAsig, $idTipoNota){
+   public function list($idAsig, $idTipoNota, $asignaturaCursoId){
 
     $tipoNota = TipoNota::find($idTipoNota);
 
     $modalidad = Modalidad::find($tipoNota->IDMODALIDAD);
 
-    $asignatura = Asignatura::find($idAsig);
+    $asignaturaCurso = AsignaturaCurso::find($asignaturaCursoId);
 
-     $notas = Nota::where([['ASIGNATURAID','=',$asignatura->ASIGNATURAID],['ANIO','=','2018'],['TIPONOTAID','=',$idTipoNota],
-     ['IDMODALIDAD','=',$modalidad->IDMODALIDAD]])->get();
+    $asignatura = Asignatura::find($asignaturaCurso->asignatura->ASIGNATURAID);
+
+     $notas = Nota::where([['ASIGNATURAID','=',$asignatura->ASIGNATURAID],['ANIO','=',$asignaturaCurso->ANIO],['TIPONOTAID','=',$idTipoNota],
+     ['IDMODALIDAD','=',$modalidad->IDMODALIDAD],['ASIGNATURACURSOID','=',$asignaturaCurso->ASIGNATURACURSOID]])->get();
 
      return view('notas.Listado')->with('notas',$notas)
                                  ->with('asignatura',$asignatura)
                                  ->with('idTipoNota',$idTipoNota)
-                                 ->with('tipoNota',$tipoNota);
+                                 ->with('tipoNota',$tipoNota)
+                                 ->with('asignaturaCursoId',$asignaturaCursoId);
     }
 
     /**

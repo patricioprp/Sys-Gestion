@@ -22,7 +22,7 @@
            </div>
         <hr>
        <div class="row">
-            <a href="{{ route('Notas.pdf',['idAsig' => $asignatura->ASIGNATURAID, 'idTipoNota' =>$idTipoNota]) }}" class="btn btn-info btn-lg">
+            <a href="{{ route('Notas.pdf',['idAsig' => $asignatura->ASIGNATURAID, 'idTipoNota' =>$idTipoNota, 'asignaturaCursoId'=>$asignaturaCursoId]) }}" class="btn btn-info btn-lg">
                 Descargar Notas en PDF
             </a>
       </div>
@@ -53,7 +53,7 @@
             <td>{{$nota->ANIO}}</td>
             <td>{{$nota->IDNIVELES}}</td>
             <td>{{$nota->IDDIVISION}}</td>
-            <td><a href="{{route('NotaView', ['idNota' => $nota->NOTAID, 'idAsig' => $asignatura->ASIGNATURAID, 'idTipoNota' =>$idTipoNota])}}" class="btn btn-warning" title="Calificar"><b>Editar Nota</b></span></a></td>
+            <td><a href="{{route('NotaView', ['idNota' => $nota->NOTAID, 'idAsig' => $asignatura->ASIGNATURAID, 'idTipoNota' =>$idTipoNota, 'asignaturaCursoId'=>$asignaturaCursoId])}}" class="btn btn-warning" title="Calificar"><b>Editar Nota</b></span></a></td>
         </tr>
           @endforeach
       </table>
