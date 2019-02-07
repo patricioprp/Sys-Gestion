@@ -60,8 +60,8 @@ class NotaController extends Controller
         $asignatura = Asignatura::find($asignaturaCurso->asignatura->ASIGNATURAID);
 
         $notas = Nota::where([['ASIGNATURAID','=',$asignatura->ASIGNATURAID],['ANIO','=',$asignaturaCurso->ANIO],['TIPONOTAID','=',$request->tipoNota],
-         ['IDMODALIDAD','=',$modalidad->IDMODALIDAD],['ASIGNATURACURSOID','=',$asignaturaCurso->ASIGNATURACURSOID]])->get();
-
+         ['IDMODALIDAD','=',$modalidad->IDMODALIDAD],['ASIGNATURACURSOID','=',$asignaturaCurso->ASIGNATURACURSOID]])->orderBy('NOTAID', 'DESC')->get();
+        
          return view('notas.Listado')->with('notas',$notas)
                                      ->with('asignatura',$asignatura)
                                      ->with('idTipoNota',$request->tipoNota)

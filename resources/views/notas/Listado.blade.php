@@ -32,11 +32,11 @@
 <div class="col-xs-12">
 <div class="table-responsive">
       <!-- Table -->
-      <table class="table table-bordered table-condensed table-striped table-responsive table-hover">
+      <table class="table table-bordered table-condensed table-striped table-responsive table-hover" id="myTable2">
         <tr>
           <th>#</th>
-          <th>APELLIDO</th>
-          <th>NOMBRE</th>
+          <th onclick="sortTable(1)">APELLIDO</th>
+          <th onclick="sortTable(0)">NOMBRE</th>
           <th>NOTA</th>
           <th>AÑO</th>
           <th>NIVEL</th>
