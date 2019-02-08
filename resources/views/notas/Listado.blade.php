@@ -22,6 +22,7 @@
            </div>
         <hr>
        <div class="row">
+       <a href="{{route('docenteCurso.index')}}" class="btn btn-danger btn-lg" style="color:white"><b>VOLVER</b></a>
             <a href="{{ route('Notas.pdf',['idAsig' => $asignatura->ASIGNATURAID, 'idTipoNota' =>$idTipoNota, 'asignaturaCursoId'=>$asignaturaCursoId]) }}" class="btn btn-info btn-lg">
                 Descargar Notas en PDF
             </a>

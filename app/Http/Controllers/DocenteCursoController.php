@@ -51,6 +51,10 @@ class DocenteCursoController extends Controller
     {
         //
     }
+    public function return(Request $request)
+    {
+      dd($request->all);
+    }
 
     /**
      * Store a newly created resource in storage.
