@@ -12,7 +12,7 @@
 </div>
 <p>
 <div class="row">
-    <select class="form-control" id="modalidad" name="modalidad">
+    <select class="form-control" id="modalidad" name="modalidad" required>
         <option value="" disabled selected>Seleccione una Modalidad</option>
     @foreach($configuraMods as $configuraMod)
         <option value={{$configuraMod->modalidad->IDMODALIDAD}}>{{ $configuraMod->modalidad->DESCRIPCION}} - {{ $configuraMod->modalidad->IDMODALIDAD}} </option>
@@ -25,7 +25,7 @@
 </div>
 <p>
     <div class="row">
-        <select class="form-control" id="asignaturaCursoId" name="asignaturaCursoId">
+        <select class="form-control" id="asignaturaCursoId" name="asignaturaCursoId" required>
               <option value="" disable selected>Seleccione una Asignatura</option>
         @foreach($docenteCursos as $docenteCurso)
         <option value={{$docenteCurso->ASIGNATURACURSOID}}>{{$docenteCurso->ANIO}}-{{$docenteCurso->NOMASIGNATURA}}-{{$docenteCurso->asignaturaCurso->IDDIVISION}}-{{$docenteCurso->asignaturaCurso->IDNIVELES}}</option>

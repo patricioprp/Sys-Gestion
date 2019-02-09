@@ -1,18 +1,18 @@
 @extends('layouts.principal')
 
-@section('titulo','Notas Adicionales')
+@section('titulo','Editando Nota Adicional')
 
 @section('cuerpo')
-
+{!! Form::open(['route' => ['NotaAdicional.update',$notaAdicional->IDNOTAADICIONAL],'method'=>'PUT']) !!}
 <div class="panel panel-default">
     <!-- Default panel contents -->
     <div class="panel-heading">
         <div class="row">
             <div class="alert alert-info" role="alert">
-                <h5><strong>ASIGNATURA: {{$nota->asignatura->NOMBRE}}-{{$nota->alumno->APELLIDOS}}</strong></h5>
+                <h5><strong>ASIGNATURA: {{$nota->asignatura->NOMBRE}}</strong></h5>
             </div>
             <div class="alert alert-primary" role="alert">
-                <h5><strong>ALUMNO: {{$nota->alumno->NOMBRES}}</strong></h5>
+                <h5><strong>ALUMNO: {{$nota->alumno->NOMBRES}}-{{$nota->alumno->APELLIDOS}}</strong></h5>
             </div>
             <div class="alert alert-success" role="alert">
             <h5>DIVISION:{{$nota->IDDIVISION}}</h5>
@@ -24,7 +24,7 @@
       <hr>
     </div>
   </div>
-<div class="col-xs-12">
+  <div class="col-xs-12">
     <div class="table-responsive">
           <!-- Table -->
           <table class="table table-bordered table-condensed table-striped table-responsive table-hover">
@@ -32,21 +32,18 @@
               <th>#</th>
               <th>DESCRIPCION</th>
               <th>NOTA</th>
-              <th>ACCION</th>
             </tr>
-
-              @foreach ($notaAdicionals as $notaAdicional)
               <tr>
                 <td>{{$notaAdicional->IDNOTAADICIONAL}}</td>
                 <td>{{$notaAdicional->planAsigAdic->DESCRIPCION}}</td>
-                <td>{{$notaAdicional->NOTA}}</td>
-              <td><a href="{{route('NotaAdicional.show',['idNota' => $nota->NOTAID,  'idNotaAdicional'=>$notaAdicional->IDNOTAADICIONAL])}}" class="btn btn-warning" title="Calificar"><b>Editar Nota</b></span></a>
-                </td>
+                <td></label><input type="text" name="notaAdicional" value="{{$notaAdicional->NOTA}}"></td>
             </tr>
-              @endforeach
           </table>
         </div>
         </div>
-
+        {!! Form::hidden('idNota', $nota->NOTAID) !!}
+        <div class="row">
+            <button class="btn btn-primary">Aceptar</button>
+        </div>
+{!! Form::close() !!}
 @endsection
-

@@ -9,6 +9,11 @@ use App\Nota;
 
 class NotaAdicionalController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -50,6 +55,13 @@ class NotaAdicionalController extends Controller
     {
         //
     }
+    public function showNotaAdicional($idNota,$idNotaAdicional)
+    {
+       $nota = Nota::find($idNota);
+       $notaAdicional = NotAdicional::find($idNotaAdicional);
+       return view('notaAdicional.edit')->with('nota',$nota)
+                                        ->with('notaAdicional',$notaAdicional);
+    }
 
     /**
      * Show the form for editing the specified resource.
@@ -71,7 +83,11 @@ class NotaAdicionalController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $notaAdicional = NotAdicional::find($id);
+        $notaAdicional->NOTA = $request->notaAdicional;
+        $notaAdicional->save();
+        flash(" La Nota del Alumno/a ".$notaAdicional->alumno->NOMBRES.'-'.$notaAdicional->alumno->APELLIDOS." fue editada correctamente!!!")->warning();
+        return redirect()->action('NotaAdicionalController@view',['idNota'=>$request->idNota]);
     }
 
     /**
