@@ -16,7 +16,11 @@ class Nota extends Model
         return $this->belongsTo('\App\Alumno','IDALUMNO');
       }
 
-      public function division(){
+    public function division(){
         return $this->belongsTo('\App\Division','IDDIVISION');
       }
+
+    public function asignatura(){
+        return $this->belongsTo('\App\Asignatura','ASIGNATURAID');
+    }
 }

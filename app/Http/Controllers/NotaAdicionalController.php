@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\NotAdicional;
+use App\Nota;
+
 
 class NotaAdicionalController extends Controller
 {
@@ -80,5 +83,15 @@ class NotaAdicionalController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function view($idNota)
+    {
+    $nota = Nota::find($idNota);
+    $notaAdicionals = NotAdicional::where([['ANO','=',$nota->ANIO],['IDALUMNO','=',$nota->IDALUMNO],
+                                          ['IDMODALIDAD','=',$nota->IDMODALIDAD],['ASIGNATURAID','=',$nota->ASIGNATURAID]])->get();
+    //dd($notaAdicionals);
+    return view('notaAdicional.view')->with('nota',$nota)
+                                     ->with('notaAdicionals',$notaAdicionals);
     }
 }

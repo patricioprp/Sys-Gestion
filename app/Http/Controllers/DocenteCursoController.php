@@ -13,6 +13,7 @@ use App\TipoModalidad;
 use App\ConfiguraMod;
 use App\Nota;
 use App\AsignaturaCurso;
+use App\PlanAsigAdic;
 
 
 class DocenteCursoController extends Controller

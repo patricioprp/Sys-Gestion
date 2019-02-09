@@ -25,5 +25,7 @@ Route::get('Nota/{idNota}/{idAsig}/{idTipoNota}/{asignaturaCursoId}','NotaContro
 Route::get('DocenteCurso/{idAsig}/{idTipoNota}/{AsinaturaCursoId}','DocenteCursoController@list')->name('NotaList');
 Route::get('descargar-notas/{idAsig}/{tipoNota}/{asignaturaCursoId}', 'NotaController@pdf')->name('Notas.pdf');
 Route::resource('NotaAdicional','NotaAdicionalController');
+Route::get('NotaAdicional/{idNota}/view','NotaAdicionalController@view')->name('NotaAdicional.view');
+Route::get('NotaAdicional/{idNota}/editar','NotaAdicionalController@editar')->name('NotaAdicional.editar');
 
 

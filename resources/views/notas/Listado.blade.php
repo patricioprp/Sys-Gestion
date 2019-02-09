@@ -16,7 +16,7 @@
                   <h5><strong>TIPO DE NOTA: {{$tipoNota->DESCRIPCION}}</strong></h5>
               </div>
               <div class="alert alert-success" role="alert">
-                  <h5>{{$asignatura->NOMBRE}} </h5>
+              <h5>{{$asignatura->NOMBRE}}-{{$asignatura->ASIGNATURAID}}</h5>
              </div>
 
            </div>
@@ -49,12 +49,16 @@
           <tr>
             <td>{{$nota->NOTAID}}</td>
             <td>{{$nota->alumno->APELLIDOS}}</td>
-            <td>{{$nota->alumno->NOMBRES}}</td>
+          <td>{{$nota->alumno->NOMBRES}}</td>
             <td>{{$nota->NOTA}}</td>
             <td>{{$nota->ANIO}}</td>
             <td>{{$nota->IDNIVELES}}</td>
             <td>{{$nota->IDDIVISION}}</td>
-            <td><a href="{{route('NotaView', ['idNota' => $nota->NOTAID, 'idAsig' => $asignatura->ASIGNATURAID, 'idTipoNota' =>$idTipoNota, 'asignaturaCursoId'=>$asignaturaCursoId])}}" class="btn btn-warning" title="Calificar"><b>Editar Nota</b></span></a></td>
+            <td><a href="{{route('NotaView', ['idNota' => $nota->NOTAID, 'idAsig' => $asignatura->ASIGNATURAID, 'idTipoNota' =>$idTipoNota, 'asignaturaCursoId'=>$asignaturaCursoId])}}" class="btn btn-warning" title="Calificar"><b>Editar Nota</b></span></a>
+                @if($asignatura->NOTAADICIONAL)
+            <a href="{{route('NotaAdicional.view',$nota->NOTAID)}}" class="btn btn-info"><b>Nota Adicional</b></a>
+                @endif
+            </td>
         </tr>
           @endforeach
       </table>
