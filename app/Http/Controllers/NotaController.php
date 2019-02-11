@@ -59,14 +59,20 @@ class NotaController extends Controller
 
         $asignatura = Asignatura::find($asignaturaCurso->asignatura->ASIGNATURAID);
 
+        $estado="false";
+
+        $IdNota = "false";
+
         $notas = Nota::where([['ASIGNATURAID','=',$asignatura->ASIGNATURAID],['ANIO','=',$asignaturaCurso->ANIO],['TIPONOTAID','=',$request->tipoNota],
          ['IDMODALIDAD','=',$modalidad->IDMODALIDAD],['ASIGNATURACURSOID','=',$asignaturaCurso->ASIGNATURACURSOID]])->orderBy('NOTAID', 'DESC')->get();
-        
+
          return view('notas.Listado')->with('notas',$notas)
                                      ->with('asignatura',$asignatura)
                                      ->with('idTipoNota',$request->tipoNota)
                                      ->with('asignaturaCursoId',$asignaturaCurso->ASIGNATURACURSOID)
-                                     ->with('tipoNota',$tipoNota);
+                                     ->with('tipoNota',$tipoNota)
+                                     ->with('estado',$estado)
+                                     ->with('IdNota',$IdNota);
 
     }
 
@@ -141,8 +147,13 @@ class NotaController extends Controller
         $nota=Nota::findorfail($id);
             $nota->NOTA = $request->nota;
             $nota->save();
+          //  dd($nota->NOTAID);
             flash(" La Nota del Alumno/a ".$nota->alumno->NOMBRES.'-'.$nota->alumno->APELLIDOS." fue editada correctamente!!!")->warning();
-            return redirect()->action('DocenteCursoController@list',['idDiv'=>$request->idDiv,'idAsig'=>$request->idAsig,'asignaturaCursoId'=>$request->asignaturaCursoId]);
+            $estado = "activo";
+            return redirect()->action('DocenteCursoController@list',['idDiv'=>$request->idDiv,'idAsig'=>$request->idAsig,
+                                                                    'asignaturaCursoId'=>$request->asignaturaCursoId,
+                                                                    'estado'=>$estado,
+                                                                    'IdNota'=>$nota->NOTAID]);
       // return redirect()->back();
 
 

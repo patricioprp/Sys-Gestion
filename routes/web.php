@@ -22,7 +22,7 @@ Route::get('tipoNota/{IDMODALIDAD}','ModalidadController@getTipoNota');//para el
 //Route::get('asignaturaCurso/{TIPONOTAID}','DocenteCursoController@getAsignatura');//para el select dinamico
 Route::resource('Nota','NotaController');
 Route::get('Nota/{idNota}/{idAsig}/{idTipoNota}/{asignaturaCursoId}','NotaController@view')->name('NotaView');
-Route::get('DocenteCurso/{idAsig}/{idTipoNota}/{AsinaturaCursoId}','DocenteCursoController@list')->name('NotaList');
+Route::get('DocenteCurso/{idAsig}/{idTipoNota}/{AsinaturaCursoId}/{estado}/{IdNota}','DocenteCursoController@list')->name('NotaList');
 Route::get('descargar-notas/{idAsig}/{tipoNota}/{asignaturaCursoId}', 'NotaController@pdf')->name('Notas.pdf');
 Route::resource('NotaAdicional','NotaAdicionalController');
 Route::get('NotaAdicional/{idNota}/view','NotaAdicionalController@view')->name('NotaAdicional.view');

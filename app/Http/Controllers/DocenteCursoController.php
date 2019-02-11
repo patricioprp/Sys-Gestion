@@ -68,7 +68,7 @@ class DocenteCursoController extends Controller
 
     }
 
-   public function list($idAsig, $idTipoNota, $asignaturaCursoId){
+   public function list($idAsig, $idTipoNota, $asignaturaCursoId,$estado,$IdNota){
 
     $tipoNota = TipoNota::find($idTipoNota);
 
@@ -79,13 +79,15 @@ class DocenteCursoController extends Controller
     $asignatura = Asignatura::find($asignaturaCurso->asignatura->ASIGNATURAID);
 
      $notas = Nota::where([['ASIGNATURAID','=',$asignatura->ASIGNATURAID],['ANIO','=',$asignaturaCurso->ANIO],['TIPONOTAID','=',$idTipoNota],
-     ['IDMODALIDAD','=',$modalidad->IDMODALIDAD],['ASIGNATURACURSOID','=',$asignaturaCurso->ASIGNATURACURSOID]])->get();
+     ['IDMODALIDAD','=',$modalidad->IDMODALIDAD],['ASIGNATURACURSOID','=',$asignaturaCurso->ASIGNATURACURSOID]])->orderBy('NOTAID', 'DESC')->get();
 
      return view('notas.Listado')->with('notas',$notas)
                                  ->with('asignatura',$asignatura)
                                  ->with('idTipoNota',$idTipoNota)
                                  ->with('tipoNota',$tipoNota)
-                                 ->with('asignaturaCursoId',$asignaturaCursoId);
+                                 ->with('asignaturaCursoId',$asignaturaCursoId)
+                                 ->with('estado',$estado)
+                                 ->with('IdNota',$IdNota);
     }
 
     /**

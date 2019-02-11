@@ -44,12 +44,12 @@
           <th>DIVISION</th>
           <th>ACCION</th>
         </tr>
-
           @foreach ($notas as $nota)
-          <tr>
+            @if($nota->NOTAID=="$IdNota")
+            <tr id="activo">
             <td>{{$nota->NOTAID}}</td>
             <td>{{$nota->alumno->APELLIDOS}}</td>
-          <td>{{$nota->alumno->NOMBRES}}</td>
+            <td>{{$nota->alumno->NOMBRES}}</td>
             <td>{{$nota->NOTA}}</td>
             <td>{{$nota->ANIO}}</td>
             <td>{{$nota->IDNIVELES}}</td>
@@ -60,6 +60,22 @@
                 @endif
             </td>
         </tr>
+        @elseif(($IdNota!="{{$nota->NOTAID}}"))
+        <tr>
+            <td>{{$nota->NOTAID}}</td>
+            <td>{{$nota->alumno->APELLIDOS}}</td>
+            <td>{{$nota->alumno->NOMBRES}}</td>
+            <td>{{$nota->NOTA}}</td>
+            <td>{{$nota->ANIO}}</td>
+            <td>{{$nota->IDNIVELES}}</td>
+            <td>{{$nota->IDDIVISION}}</td>
+            <td><a href="{{route('NotaView', ['idNota' => $nota->NOTAID, 'idAsig' => $asignatura->ASIGNATURAID, 'idTipoNota' =>$idTipoNota, 'asignaturaCursoId'=>$asignaturaCursoId])}}" class="btn btn-warning" title="Calificar"><b>Editar Nota</b></span></a>
+                @if($asignatura->NOTAADICIONAL)
+            <a href="{{route('NotaAdicional.view',$nota->NOTAID)}}" class="btn btn-info"><b>Nota Adicional</b></a>
+                @endif
+            </td>
+        </tr>
+        @endif
           @endforeach
       </table>
     </div>
