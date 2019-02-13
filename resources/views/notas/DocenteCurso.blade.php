@@ -28,7 +28,7 @@
         <select class="form-control col-md-6" id="asignaturaCursoId" name="asignaturaCursoId" required>
               <option value="" disable selected>Seleccione una Asignatura</option>
         @foreach($docenteCursos as $docenteCurso)
-        <option value={{$docenteCurso->ASIGNATURACURSOID}}>{{$docenteCurso->ANIO}}-{{$docenteCurso->NOMASIGNATURA}}-{{$docenteCurso->asignaturaCurso->IDDIVISION}}-{{$docenteCurso->asignaturaCurso->IDNIVELES}}</option>
+        <option value={{$docenteCurso->ASIGNATURACURSOID}}>{{$docenteCurso->ANIO}}-{{$docenteCurso->asignaturaCurso->asignatura->NOMBRE}}-{{$docenteCurso->asignaturaCurso->IDDIVISION}}-{{$docenteCurso->asignaturaCurso->IDNIVELES}}</option>
         @endforeach
         </select>
     </div>

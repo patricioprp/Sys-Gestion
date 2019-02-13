@@ -46,7 +46,7 @@
         </tr>
           @foreach ($notas as $nota)
             @if($nota->NOTAID=="$IdNota")
-            <tr id="activo">
+        <tr id="{{$estado}}">
             <td>{{$nota->NOTAID}}</td>
             <td>{{$nota->alumno->APELLIDOS}}</td>
             <td>{{$nota->alumno->NOMBRES}}</td>
@@ -54,9 +54,11 @@
             <td>{{$nota->ANIO}}</td>
             <td>{{$nota->IDNIVELES}}</td>
             <td>{{$nota->IDDIVISION}}</td>
-            <td><a href="{{route('NotaView', ['idNota' => $nota->NOTAID, 'idAsig' => $asignatura->ASIGNATURAID, 'idTipoNota' =>$idTipoNota, 'asignaturaCursoId'=>$asignaturaCursoId])}}" class="btn btn-warning" title="Calificar"><b>Editar Nota</b></span></a>
+            <td><a href="{{route('NotaView', ['idNota' => $nota->NOTAID, 'idAsig' => $asignatura->ASIGNATURAID,
+             'idTipoNota' =>$idTipoNota, 'asignaturaCursoId'=>$asignaturaCursoId])}}" class="btn btn-warning"
+              title="Calificar" id="{{$nota->NOTAID}}" onClick="reply_click(this.id)"><b>Editar Nota</b></span></a>
                 @if($asignatura->NOTAADICIONAL)
-            <a href="{{route('NotaAdicional.view',$nota->NOTAID)}}" class="btn btn-info"><b>Nota Adicional</b></a>
+            <a href="{{route('NotaAdicional.view',$nota->NOTAID)}}" class="btn btn-info""><b>Nota Adicional</b></a>
                 @endif
             </td>
         </tr>
@@ -69,9 +71,11 @@
             <td>{{$nota->ANIO}}</td>
             <td>{{$nota->IDNIVELES}}</td>
             <td>{{$nota->IDDIVISION}}</td>
-            <td><a href="{{route('NotaView', ['idNota' => $nota->NOTAID, 'idAsig' => $asignatura->ASIGNATURAID, 'idTipoNota' =>$idTipoNota, 'asignaturaCursoId'=>$asignaturaCursoId])}}" class="btn btn-warning" title="Calificar"><b>Editar Nota</b></span></a>
+            <td><a href="{{route('NotaView', ['idNota' => $nota->NOTAID, 'idAsig' => $asignatura->ASIGNATURAID,
+            'idTipoNota' =>$idTipoNota, 'asignaturaCursoId'=>$asignaturaCursoId])}}" class="btn btn-warning"
+            title="Calificar" id="{{$nota->NOTAID}}" onClick="reply_click(this.id)"><b>Editar Nota</b></span></a>
                 @if($asignatura->NOTAADICIONAL)
-            <a href="{{route('NotaAdicional.view',$nota->NOTAID)}}" class="btn btn-info"><b>Nota Adicional</b></a>
+            <a href="{{route('NotaAdicional.view',$nota->NOTAID)}}" class="btn btn-info""><b>Nota Adicional</b></a>
                 @endif
             </td>
         </tr>
@@ -81,5 +85,21 @@
     </div>
     </div>
 </p>
-
+<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+<script>
+function reply_click(clicked_id)
+{
+    var id=clicked_id;
+    console.log('#'+id);
+    var posicion = $('#'+id).offset().top;
+    sessionStorage.setItem("posicion", posicion);
+}
+$( document ).ready(function() {
+                var posicion= sessionStorage.getItem("posicion");
+                console.log(posicion);
+                $("html, body").animate({
+                scrollTop: posicion
+            }, 2000);
+        });
+</script>
 @endsection
