@@ -99,8 +99,8 @@ $( document ).ready(function() {
                 scrollTop: posicion
             }, 2000);
             sortTable(1);//se envia parametro para ordenar a la funcion para ordenar la tabla, tmb se puede ordenar clickeando en la colummna
-             inicializar=0;
-             sessionStorage.setItem("posicion", inicializar);
+             //inicializar=0;
+            // sessionStorage.setItem("posicion", inicializar);
         });
 </script>
 @endsection

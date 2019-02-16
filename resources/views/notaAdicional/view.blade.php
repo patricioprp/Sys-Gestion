@@ -7,12 +7,13 @@
 <div class="panel panel-default">
     <!-- Default panel contents -->
     <div class="panel-heading">
+    <a href="{{route('NotaList',['idAsig'=>$nota->ASIGNATURAID,'idTipoNota'=>$nota->TIPONOTAID,'AsinaturaCursoId'=>$nota->ASIGNATURACURSOID,'estado'=>'activo','IdNota'=>$nota->NOTAID])}}" class="btn btn-danger btn-lg" style="color:white"><b>VOLVER</b></a>
         <div class="row">
             <div class="alert alert-info" role="alert">
-                <h5><strong>ASIGNATURA: {{$nota->asignatura->NOMBRE}}-{{$nota->alumno->APELLIDOS}}</strong></h5>
+                <h5><strong>{{$nota->asignatura->NOMBRE}}</strong></h5>
             </div>
             <div class="alert alert-primary" role="alert">
-                <h5><strong>ALUMNO: {{$nota->alumno->NOMBRES}}</strong></h5>
+                <h5><strong>ALUMNO: {{$nota->alumno->NOMBRES}}-{{$nota->alumno->APELLIDOS}}</strong></h5>
             </div>
             <div class="alert alert-success" role="alert">
             <h5>DIVISION:{{$nota->IDDIVISION}}</h5>
