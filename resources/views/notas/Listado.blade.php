@@ -36,8 +36,7 @@
       <table class="table table-bordered table-condensed table-striped table-responsive table-hover" id="myTable2">
         <tr>
           <th>#</th>
-          <th onclick="sortTable(1)">APELLIDO</th>
-          <th onclick="sortTable(0)">NOMBRE</th>
+          <th onclick="sortTable(1)" id="ordenar">NOMBRE Y APELLIDO</th>
           <th>NOTA</th>
           <th>AÑO</th>
           <th>NIVEL</th>
@@ -48,8 +47,7 @@
             @if($nota->NOTAID=="$IdNota")
         <tr id="{{$estado}}">
             <td>{{$nota->NOTAID}}</td>
-            <td>{{$nota->alumno->APELLIDOS}}</td>
-            <td>{{$nota->alumno->NOMBRES}}</td>
+            <td>{{$nota->alumno->APELLIDOS}} {{$nota->alumno->NOMBRES}}</td>
             <td>{{$nota->NOTA}}</td>
             <td>{{$nota->ANIO}}</td>
             <td>{{$nota->IDNIVELES}}</td>
@@ -65,8 +63,8 @@
         @elseif(($IdNota!="{{$nota->NOTAID}}"))
         <tr>
             <td>{{$nota->NOTAID}}</td>
-            <td>{{$nota->alumno->APELLIDOS}}</td>
-            <td>{{$nota->alumno->NOMBRES}}</td>
+            <td>{{$nota->alumno->APELLIDOS}} {{$nota->alumno->NOMBRES}}</td>
+
             <td>{{$nota->NOTA}}</td>
             <td>{{$nota->ANIO}}</td>
             <td>{{$nota->IDNIVELES}}</td>
@@ -100,6 +98,7 @@ $( document ).ready(function() {
                 $("html, body").animate({
                 scrollTop: posicion
             }, 2000);
+            sortTable(1);//se envia parametro para ordenar a la funcion para ordenar la tabla, tmb se puede ordenar clickeando en la colummna
         });
 </script>
 @endsection
