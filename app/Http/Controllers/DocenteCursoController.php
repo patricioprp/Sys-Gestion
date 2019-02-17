@@ -37,7 +37,6 @@ class DocenteCursoController extends Controller
                                      ->where([['DOCENTECURSO.iddocente','=',$docente->iddocente],['ASIGNATURACURSO.ANIO','=','2018']])->get();
 
         $configuraMods = ConfiguraMod::where([['ACTIVO','=','S'],['ANO','=','2018'],['IDMODALIDAD','>','0']])->get();
-
         return view('notas.DocenteCurso')->with('configuraMods',$configuraMods)
                                          ->with('docenteCursos',$docenteCursos);
 

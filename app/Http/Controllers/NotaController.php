@@ -63,8 +63,14 @@ class NotaController extends Controller
 
         $IdNota = "false";
 
-        $notas = Nota::where([['ASIGNATURAID','=',$asignatura->ASIGNATURAID],['ANIO','=',$asignaturaCurso->ANIO],['TIPONOTAID','=',$request->tipoNota],
+        $notas = Nota::where([['ASIGNATURAID','=',$asignatura->ASIGNATURAID],['ANIO','=','2018'],['TIPONOTAID','=',$request->tipoNota],
          ['IDMODALIDAD','=',$modalidad->IDMODALIDAD],['ASIGNATURACURSOID','=',$asignaturaCurso->ASIGNATURACURSOID]])->orderBy('NOTAID', 'DESC')->get();
+
+        if(count($notas)==0)
+        {
+        $notas = DB::select('exec AGREGARNOTAS(?,?,?,?,?,?)',array($asignatura->ASIGNATURAID,$modalidad->IDMODALIDAD,$request->tipoNota,"2019","SECUNDARIO",'4ADJ'));
+        dd($notas);
+        }
 
          return view('notas.Listado')->with('notas',$notas)
                                      ->with('asignatura',$asignatura)

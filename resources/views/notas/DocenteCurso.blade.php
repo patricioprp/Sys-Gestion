@@ -44,5 +44,14 @@
 </div>
 
 {!! Form::close() !!}
-
+<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+<script>
+    $( document ).ready(function() {
+        $(function(){
+        $('#modaliad').val('0')
+        $('#modalidad').change();
+        console.log("combio");//puede q este script genere conflictos en el select dinamico y en la busqueda de alumnos
+    });
+            });
+    </script>
 @endsection
