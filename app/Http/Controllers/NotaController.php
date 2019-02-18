@@ -70,6 +70,13 @@ class NotaController extends Controller
         {
         $notas = DB::select('exec AGREGARNOTAS(?,?,?,?,?,?)',array($asignatura->ASIGNATURAID,$modalidad->IDMODALIDAD,$request->tipoNota,"2019","SECUNDARIO",'4ADJ'));
         dd($notas);
+        return view('notas.Listado')->with('notas',$notas)
+        ->with('asignatura',$asignatura)
+        ->with('idTipoNota',$request->tipoNota)
+        ->with('asignaturaCursoId',$asignaturaCurso->ASIGNATURACURSOID)
+        ->with('tipoNota',$tipoNota)
+        ->with('estado',$estado)
+        ->with('IdNota',$IdNota);
         }
 
          return view('notas.Listado')->with('notas',$notas)
