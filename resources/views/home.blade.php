@@ -11,6 +11,9 @@
          <div class="container-fluid">
             <div class="row">
                 <div class="col-sm-12 col-md-4">
+                    
+                </div>
+                <div class="col-sm-12 col-md-4">
                     <div class="card mb-4 bg-default text-white" style="background-color:#7B0A22;">
                         <div class="card-body text-center">
                           <h5 class="card-title">Gestion de Calificaciones</h5>
