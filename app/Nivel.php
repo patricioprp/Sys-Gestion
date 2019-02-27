@@ -8,7 +8,7 @@ class Nivel extends Model
 {
     protected $table = 'NIVELES';
     protected $primaryKey = 'IDNIVELES';
-  //  public $incrementing = false;
+    public $incrementing = false;
    // protected $keyType = 'string';
     protected $fillable = ['IDNIVELES','IDDET_CENTRO','DESCRIPCION','ABREVIA','TEXTO1','TEXTO2'];
 

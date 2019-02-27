@@ -34,9 +34,9 @@ class DocenteCursoController extends Controller
         $docenteCursos = DocenteCurso::join('ASIGNATURACURSO','ASIGNATURACURSO.ASIGNATURACURSOID','=','DOCENTECURSO.ASIGNATURACURSOID')
                                      ->join('ASIGNATURA','ASIGNATURA.ASIGNATURAID','=','ASIGNATURACURSO.ASIGNATURAID')
                                      ->select('ASIGNATURACURSO.*','ASIGNATURA.IDTIPOMODALIDAD','ASIGNATURA.NOMBRE AS NOMASIGNATURA')
-                                     ->where([['DOCENTECURSO.iddocente','=',$docente->iddocente],['ASIGNATURACURSO.ANIO','=','2018']])->get();
+                                     ->where([['DOCENTECURSO.iddocente','=',$docente->iddocente],['ASIGNATURACURSO.ANIO','=',date("Y")]])->get();
 
-        $configuraMods = ConfiguraMod::where([['ACTIVO','=','S'],['ANO','=','2018'],['IDMODALIDAD','>','0']])->get();
+        $configuraMods = ConfiguraMod::where([['ACTIVO','=','S'],['ANO','=',date("Y")],['IDMODALIDAD','>','0']])->get();
         return view('notas.DocenteCurso')->with('configuraMods',$configuraMods)
                                          ->with('docenteCursos',$docenteCursos);
 

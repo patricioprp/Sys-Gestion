@@ -46,7 +46,7 @@
           @foreach ($notas as $nota)
             @if($nota->NOTAID=="$IdNota")
         <tr id="{{$estado}}">
-            <td>{{$nota->NOTAID}}</td>
+            <td>{{$nota->alumno->IDALUMNO}}</td>
             <td>{{$nota->alumno->APELLIDOS}} {{$nota->alumno->NOMBRES}}</td>
             <td>{{$nota->NOTA}}</td>
             <td>{{$nota->ANIO}}</td>

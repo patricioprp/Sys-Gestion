@@ -8,6 +8,7 @@ class Division extends Model
 {
     protected $table = 'DIVISIONES';
     protected $primaryKey = 'IDDIVISION';
+    public $incrementing = false;
     protected $fillable = ['IDDIVISION','IDNIVELES','DESCRIPCION','ABREVIA','NOMNIV','NOMDIV','PASADIV','PASANIV','PROXMAT','CUOTAS','VENCE','TEXTO','IDTIPOCUOTA','LUGARPAGO'];
 
 
