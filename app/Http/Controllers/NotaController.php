@@ -68,8 +68,8 @@ class NotaController extends Controller
 
         if(count($notas)==0)
         {
-        $notas2 = DB::select('exec AGREGARNOTAS(?,?,?,?,?,?)',array($asignatura->ASIGNATURAID,$modalidad->IDMODALIDAD,$request->tipoNota,date("Y"),$asignaturaCurso->nivel->IDNIVELES,$asignaturaCurso->division->IDDIVISION));
-        dd($notas2);
+        $notas2 = DB::select('execute procedure AGREGARNOTAS(?,?,?,?,?,?)',array($asignatura->ASIGNATURAID,$modalidad->IDMODALIDAD,$request->tipoNota,date("Y"),$asignaturaCurso->nivel->IDNIVELES,$asignaturaCurso->division->IDDIVISION));
+        //$notas2 = DB::select(DB::raw('execute procedure AGREGARNOTAS(?,?,?,?,?,?)'),array(31,1,3,2019,"SECUNDARIO","1ADJ"));
         return view('notas.Listado')->with('notas',$notas)
         ->with('asignatura',$asignatura)
         ->with('idTipoNota',$request->tipoNota)

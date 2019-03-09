@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\NotAdicional;
 use App\Nota;
-
+use Illuminate\Support\Facades\DB;
 
 class NotaAdicionalController extends Controller
 {
@@ -106,9 +106,9 @@ class NotaAdicionalController extends Controller
     $nota = Nota::find($idNota);
     $notaAdicionals = NotAdicional::where([['ANO','=',$nota->ANIO],['IDALUMNO','=',$nota->IDALUMNO],
                                           ['IDMODALIDAD','=',$nota->IDMODALIDAD],['ASIGNATURAID','=',$nota->ASIGNATURAID]])->get();
-     if(count($idNotaAdicional)==0)
+     if(count($notaAdicionals)==0)
     {
-    $notas = DB::select('exec AGREGARNOTASADIC(?,?,?,?,?)',array($asignatura->ASIGNATURAID,$modalidad->IDMODALIDAD,"2019","SECUNDARIO",'4ADJ'));
+    $notaAdicionals = DB::select('execute procedure AGREGARNOTASADIC(?,?,?,?,?)',array($nota->ASIGNATURAID,$nota->IDMODALIDAD,date("Y"),$nota->IDNIVELES,$nota->ID));
     return view('notaAdicional.view')->with('nota',$nota)
                                      ->with('notaAdicionals',$notaAdicionals);
     }
