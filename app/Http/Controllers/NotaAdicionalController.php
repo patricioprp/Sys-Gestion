@@ -108,7 +108,7 @@ class NotaAdicionalController extends Controller
                                           ['IDMODALIDAD','=',$nota->IDMODALIDAD],['ASIGNATURAID','=',$nota->ASIGNATURAID]])->get();
      if(count($notaAdicionals)==0)
     {
-    $notaAdicionals = DB::select('execute procedure AGREGARNOTASADIC(?,?,?,?,?)',array($nota->ASIGNATURAID,$nota->IDMODALIDAD,date("Y"),$nota->IDNIVELES,$nota->ID));
+    $notaAdicionals = DB::select('execute procedure AGREGARNOTASADIC(?,?,?,?,?)',array($nota->ASIGNATURAID,$nota->IDMODALIDAD,date("Y"),$nota->IDNIVELES,$nota->IDDIVISION));
     return view('notaAdicional.view')->with('nota',$nota)
                                      ->with('notaAdicionals',$notaAdicionals);
     }
