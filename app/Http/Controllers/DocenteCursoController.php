@@ -30,6 +30,7 @@ class DocenteCursoController extends Controller
 
     public function index()
     {
+       // header('Content-Type: text/html; charset=iso-8859-1');
         $docente = Auth::User();
         $docenteCursos = DocenteCurso::join('ASIGNATURACURSO','ASIGNATURACURSO.ASIGNATURACURSOID','=','DOCENTECURSO.ASIGNATURACURSOID')
                                      ->join('ASIGNATURA','ASIGNATURA.ASIGNATURAID','=','ASIGNATURACURSO.ASIGNATURAID')
@@ -37,6 +38,7 @@ class DocenteCursoController extends Controller
                                      ->where([['DOCENTECURSO.iddocente','=',$docente->iddocente],['ASIGNATURACURSO.ANIO','=',date("Y")]])->get();
 
         $configuraMods = ConfiguraMod::where([['ACTIVO','=','S'],['ANO','=',date("Y")],['IDMODALIDAD','>','0']])->get();
+
         return view('notas.DocenteCurso')->with('configuraMods',$configuraMods)
                                          ->with('docenteCursos',$docenteCursos);
 

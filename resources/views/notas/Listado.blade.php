@@ -101,6 +101,14 @@ $( document ).ready(function() {
             sortTable(1);//se envia parametro para ordenar a la funcion para ordenar la tabla, tmb se puede ordenar clickeando en la colummna
              //inicializar=0;
             // sessionStorage.setItem("posicion", inicializar);
+            recarga();
         });
+function recarga()
+{
+    console.log("se recargo");
+        location.reload();
+        window.stop();
+    console.log("se detuvo");
+}
 </script>
 @endsection

@@ -85,7 +85,8 @@ return [
             'database' => env('DB_DATABASE','/home/web/Escritorio/gestion.FDB'),
             'username' => env('DB_USERNAME', 'SYSDBA'),
             'password' => env('DB_PASSWORD', 'masterkey'),
-            'charset'  => env('DB_CHARSET', 'UTF8'),
+            'charset'  => env('DB_CHARSET', 'latin1'),
+            'collation' => env('DB_COLLATION','latin1_swedish_ci'),
         ],
 
     ],
