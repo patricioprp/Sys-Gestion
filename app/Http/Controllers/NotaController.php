@@ -63,13 +63,16 @@ class NotaController extends Controller
 
         $IdNota = "false";
 
-        $notas = Nota::where([['ASIGNATURAID','=',$asignatura->ASIGNATURAID],['ANIO','=',date("Y")],['TIPONOTAID','=',$request->tipoNota],
-         ['IDMODALIDAD','=',$modalidad->IDMODALIDAD],['ASIGNATURACURSOID','=',$asignaturaCurso->ASIGNATURACURSOID]])->orderBy('NOTAID', 'DESC')->get();
+        $notasQuery = Nota::where([['ASIGNATURAID','=',$asignatura->ASIGNATURAID],['ANIO','=',date("Y")],['TIPONOTAID','=',$request->tipoNota],
+         ['IDMODALIDAD','=',$modalidad->IDMODALIDAD],['ASIGNATURACURSOID','=',$asignaturaCurso->ASIGNATURACURSOID]])->orderBy('NOTAID', 'DESC');
+
+         $notas=$notasQuery->get();
 
         if(count($notas)==0)
         {
         $notas2 = DB::select('execute procedure AGREGARNOTAS(?,?,?,?,?,?)',array($asignatura->ASIGNATURAID,$modalidad->IDMODALIDAD,$request->tipoNota,date("Y"),$asignaturaCurso->nivel->IDNIVELES,$asignaturaCurso->division->IDDIVISION));
-        
+
+        $notas=$notasQuery->get();
         return view('notas.Listado')->with('notas',$notas)
         ->with('asignatura',$asignatura)
         ->with('idTipoNota',$request->tipoNota)
