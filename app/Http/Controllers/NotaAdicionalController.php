@@ -104,11 +104,13 @@ class NotaAdicionalController extends Controller
     public function view($idNota)
     {
     $nota = Nota::find($idNota);
-    $notaAdicionals = NotAdicional::where([['ANO','=',$nota->ANIO],['IDALUMNO','=',$nota->IDALUMNO],
-                                          ['IDMODALIDAD','=',$nota->IDMODALIDAD],['ASIGNATURAID','=',$nota->ASIGNATURAID]])->get();
+    $notaAdicionalsQuery = NotAdicional::where([['ANO','=',$nota->ANIO],['IDALUMNO','=',$nota->IDALUMNO],
+                                          ['IDMODALIDAD','=',$nota->IDMODALIDAD],['ASIGNATURAID','=',$nota->ASIGNATURAID]]);
+    $notaAdicional= $notaAdicionalQuery->get();
      if(count($notaAdicionals)==0)
     {
     $notaAdicionals = DB::select('execute procedure AGREGARNOTASADIC(?,?,?,?,?)',array($nota->ASIGNATURAID,$nota->IDMODALIDAD,date("Y"),$nota->IDNIVELES,$nota->IDDIVISION));
+    $notaAdicional= $notaAdicionalQuery->get();
     return view('notaAdicional.view')->with('nota',$nota)
                                      ->with('notaAdicionals',$notaAdicionals);
     }
