@@ -76,6 +76,7 @@
     </p>
     <footer>
     <h4>Fecha del Reporte:  {{$date}}</h4>
+    <h4>Hora del Reporte:   {{$time}}</h4>
     </footer>
   </body>
   </html>

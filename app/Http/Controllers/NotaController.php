@@ -127,14 +127,14 @@ class NotaController extends Controller
         $asignatura = Asignatura::find($asignaturaCurso->asignatura->ASIGNATURAID);
 
         $now = Carbon::now();
-
+        $time = $now->format('H:i');
         $date = $now->format('d-m-Y');
 
 
         $notas = Nota::where([['ASIGNATURAID','=',$asignatura->ASIGNATURAID],['ANIO','=',$asignaturaCurso->ANIO],['TIPONOTAID','=',$idTipoNota],
         ['IDMODALIDAD','=',$modalidad->IDMODALIDAD],['ASIGNATURACURSOID','=',$asignaturaCurso->ASIGNATURACURSOID]])->get();
 
-         $pdf = PDF::loadView('notas.pdf.Notas',compact('notas','asignatura','tipoNota','date'));
+         $pdf = PDF::loadView('notas.pdf.Notas',compact('notas','asignatura','tipoNota','date','time'));
 
                                      return $pdf->download('listado.pdf');
 
