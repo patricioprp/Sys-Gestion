@@ -6,21 +6,20 @@
 <img src="{{asset('image/logo.png')}}" alt="Logo" height="120" margin-bottom: 100px>
     </center>
 </div>
-
+<p></p>
 <div class="content">
          <div class="container-fluid">
             <div class="row">
                 <div class="col-sm-12 col-md-4">
-                    
+
                 </div>
                 <div class="col-sm-12 col-md-4">
-                    <div class="card mb-4 bg-default text-white" style="background-color:#7B0A22;">
-                        <div class="card-body text-center">
-                          <h5 class="card-title">Gestion de Calificaciones</h5>
-                          <p class="card-text"></p>
-                          <a href="{{route('docenteCurso.index')}}"><img src="{{ asset('image/calificaciones.jpeg')}}"alt="" height="200"></a>
+                    <div class="card border-primary mb-3" style="max-width: 18rem;">
+                        <div class="card-header" style="background-color:#1DA6E1;color:#FBFBFB"><b>Carga de Notas</b></div>
+                        <div class="card-body text-secundary">
+                         <!-- <h5 class="card-title">Primary card title</h5> -->
+                          <a href="{{route('docenteCurso.index')}}"><p class="card-text"><h5>Carga de Notas Académicas y Asistencias de Alumnos por Asignatura</h5></p></a>
                         </div>
-                     </div>
                 </div>
              <!--    <div class="col-sm-12 col-md-4">
                     <div class="card mb-4 bg-default text-white" style="background-color:#7B0A22;">
