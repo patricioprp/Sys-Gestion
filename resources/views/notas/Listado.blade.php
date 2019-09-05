@@ -15,10 +15,6 @@
               <div class="alert alert-primary" role="alert">
                   <h5><strong>TIPO DE NOTA: {{$tipoNota->DESCRIPCION}}</strong></h5>
               </div>
-              <div class="alert alert-success" role="alert">
-              <h5>{{$asignatura->NOMBRE}}-{{$asignatura->ASIGNATURAID}}</h5>
-             </div>
-
            </div>
         <hr>
        <div class="row">
@@ -54,7 +50,7 @@
             <td>{{$nota->IDDIVISION}}</td>
             <td><a href="{{route('NotaView', ['idNota' => $nota->NOTAID, 'idAsig' => $asignatura->ASIGNATURAID,
              'idTipoNota' =>$idTipoNota, 'asignaturaCursoId'=>$asignaturaCursoId])}}" class="btn btn-warning"
-              title="Calificar" id="{{$nota->NOTAID}}" onClick="reply_click(this.id)"><b>Editar Nota</b></span></a>
+              title="Calificar" id="{{$nota->NOTAID}}" onClick="reply_click(this.id)"><b>Editar</b></span></a>
                 @if($asignatura->NOTAADICIONAL)
             <a href="{{route('NotaAdicional.view',$nota->NOTAID)}}" class="btn btn-info""><b>Nota Adicional</b></a>
                 @endif
@@ -71,7 +67,7 @@
             <td>{{$nota->IDDIVISION}}</td>
             <td><a href="{{route('NotaView', ['idNota' => $nota->NOTAID, 'idAsig' => $asignatura->ASIGNATURAID,
             'idTipoNota' =>$idTipoNota, 'asignaturaCursoId'=>$asignaturaCursoId])}}" class="btn btn-warning"
-            title="Calificar" id="{{$nota->NOTAID}}" onClick="reply_click(this.id)"><b>Editar Nota</b></span></a>
+            title="Calificar" id="{{$nota->NOTAID}}" onClick="reply_click(this.id)"><b>Editar</b></span></a>
                 @if($asignatura->NOTAADICIONAL)
             <a href="{{route('NotaAdicional.view',$nota->NOTAID)}}" class="btn btn-info""><b>Nota Adicional</b></a>
                 @endif

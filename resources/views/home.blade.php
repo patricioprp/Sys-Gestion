@@ -15,7 +15,7 @@
                 </div>
                 <div class="col-sm-12 col-md-4">
                     <div class="card border-primary mb-3" style="max-width: 18rem;">
-                        <div class="card-header" style="background-color:#1DA6E1;color:#FBFBFB"><b>Carga de Notas</b></div>
+                        <div class="card-header" style="background-color:#1DA6E1;color:#FBFBFB"><b>Carga de Datos</b></div>
                         <div class="card-body text-secundary">
                          <!-- <h5 class="card-title">Primary card title</h5> -->
                           <a href="{{route('docenteCurso.index')}}"><p class="card-text"><h5>Carga de Notas Académicas y Asistencias de Alumnos por Asignatura</h5></p></a>
