@@ -33,7 +33,7 @@
         <tr>
           <th>#</th>
           <th onclick="sortTable(1)" id="ordenar">NOMBRE Y APELLIDO</th>
-          <th>NOTA</th>
+          <th>VALOR</th>
           <th>AÑO</th>
           <th>NIVEL</th>
           <th>DIVISION</th>

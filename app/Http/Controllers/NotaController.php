@@ -12,6 +12,7 @@ use App\Asignatura;
 use App\TipoModalidad;
 use App\ConfiguraMod;
 use App\Nota;
+use App\Alumno;
 use Barryvdh\DomPDF\Facade as PDF;
 use App\AsignaturaCurso;
 use Carbon\Carbon;
@@ -126,18 +127,32 @@ class NotaController extends Controller
 
         $asignatura = Asignatura::find($asignaturaCurso->asignatura->ASIGNATURAID);
 
+        $alumno = Alumno::all();
+
         $now = Carbon::now();
         $time = $now->format('H:i');
         $date = $now->format('d-m-Y');
 
 
-        $notas = Nota::where([['ASIGNATURAID','=',$asignatura->ASIGNATURAID],['ANIO','=',$asignaturaCurso->ANIO],['TIPONOTAID','=',$idTipoNota],
+        /*$notas = Nota::where([['ASIGNATURAID','=',$asignatura->ASIGNATURAID],['ANIO','=',$asignaturaCurso->ANIO],['TIPONOTAID','=',$idTipoNota],
         ['IDMODALIDAD','=',$modalidad->IDMODALIDAD],['ASIGNATURACURSOID','=',$asignaturaCurso->ASIGNATURACURSOID]])->get();
+                 $pdf = PDF::loadView('notas.pdf.Notas',compact('notas','asignatura','tipoNota','date','time'));
 
-         $pdf = PDF::loadView('notas.pdf.Notas',compact('notas','asignatura','tipoNota','date','time'));
+                                     return $pdf->download('listado.pdf');*/
 
-                                     return $pdf->download('listado.pdf');
 
+
+        $notas = NOTA::
+        join('ALUMNOS', 'ALUMNOS.IDALUMNO', '=', 'NOTAS.IDALUMNO')
+        ->where('NOTAS.ANIO', '=', $asignaturaCurso->ANIO)->where('NOTAS.ASIGNATURAID','=',$asignatura->ASIGNATURAID)->where('NOTAS.TIPONOTAID','=',$idTipoNota)
+        ->where('NOTAS.IDMODALIDAD','=',$modalidad->IDMODALIDAD)->where('NOTAS.ASIGNATURACURSOID','=',$asignaturaCurso->ASIGNATURACURSOID)
+        ->orderBy('ALUMNOS.APELLIDOS', 'ASC')
+        ->orderBy('ALUMNOS.NOMBRES', 'ASC')
+        ->get();
+        $pdf = PDF::loadView('notas.pdf.Notas',compact('notas','asignatura','tipoNota','date','time'));
+
+        return $pdf->download('listado.pdf');
+    
     }
     /**
      * Show the form for editing the specified resource.

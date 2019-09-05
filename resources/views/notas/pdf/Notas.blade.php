@@ -1,4 +1,4 @@
-  <!DOCTYPE html>
+ <!DOCTYPE html>
   <html lang="en">
   <head>
       <meta charset="UTF-8">
@@ -63,8 +63,8 @@
                     @foreach ($notas as $nota)
                     <tr>
                       <td>{{$nota->NOTAID}}</td>
-                      <td>{{$nota->alumno->APELLIDOS}}</td>
-                      <td>{{$nota->alumno->NOMBRES}}</td>
+                      <td>{{$nota->APELLIDOS}}</td>
+                      <td>{{$nota->NOMBRES}}</td>
                       <td>{{$nota->NOTA}}</td>
                       <td>{{$nota->ANIO}}</td>
                       <td>{{$nota->IDNIVELES}}</td>
