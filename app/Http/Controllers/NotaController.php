@@ -133,15 +133,6 @@ class NotaController extends Controller
         $time = $now->format('H:i');
         $date = $now->format('d-m-Y');
 
-
-        /*$notas = Nota::where([['ASIGNATURAID','=',$asignatura->ASIGNATURAID],['ANIO','=',$asignaturaCurso->ANIO],['TIPONOTAID','=',$idTipoNota],
-        ['IDMODALIDAD','=',$modalidad->IDMODALIDAD],['ASIGNATURACURSOID','=',$asignaturaCurso->ASIGNATURACURSOID]])->get();
-                 $pdf = PDF::loadView('notas.pdf.Notas',compact('notas','asignatura','tipoNota','date','time'));
-
-                                     return $pdf->download('listado.pdf');*/
-
-
-
         $notas = NOTA::
         join('ALUMNOS', 'ALUMNOS.IDALUMNO', '=', 'NOTAS.IDALUMNO')
         ->where('NOTAS.ANIO', '=', $asignaturaCurso->ANIO)->where('NOTAS.ASIGNATURAID','=',$asignatura->ASIGNATURAID)->where('NOTAS.TIPONOTAID','=',$idTipoNota)
