@@ -15,6 +15,9 @@
               <div class="alert alert-primary" role="alert">
                   <h5><strong>TIPO DE NOTA: {{$tipoNota->DESCRIPCION}}</strong></h5>
               </div>
+              <div class="alert alert-primary" role="alert">
+                <h5><strong>ASIGNATURA: {{$asignatura->nonbre}}</strong></h5>
+            </div>
            </div>
         <hr>
        <div class="row">
