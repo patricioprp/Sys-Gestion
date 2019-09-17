@@ -29,4 +29,3 @@ Route::get('NotaAdicional/{idNota}/view','NotaAdicionalController@view')->name('
 Route::get('NotaAdicional/{idNota}/editar','NotaAdicionalController@editar')->name('NotaAdicional.editar');
 Route::get('NotaAdicional/{idNota}/{idNotaAdicional}/showNotaAdicional','NotaAdicionalController@showNotaAdicional')->name('NotaAdicional.show');
 
-

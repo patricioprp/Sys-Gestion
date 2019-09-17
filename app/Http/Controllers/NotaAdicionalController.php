@@ -42,7 +42,30 @@ class NotaAdicionalController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->all();  
+        //dd($data); 
+       // dump($data['35796']);//imprime el caracteres de la caja de texto
+        $notaAdicional_1 = NotAdicional::find('35796');
+        $notaAdicional_1->NOTA = $data['35796'];
+        $notaAdicional_1->save();
+
+        $notaAdicional_2 = NotAdicional::find('35797');
+        $notaAdicional_2->NOTA = $data['35797'];
+        $notaAdicional_2->save();
+
+        $notaAdicional_3 = NotAdicional::find('35798');
+        $notaAdicional_3->NOTA = $data['35798'];
+        $notaAdicional_3->save();
+
+        $notaAdicional_4 = NotAdicional::find('35799');
+        $notaAdicional_4->NOTA = $data['35799'];
+        $notaAdicional_4->save();
+
+        $notaAdicional_5 = NotAdicional::find('35800');
+        $notaAdicional_5->NOTA = $data['35800'];
+        $notaAdicional_5->save();
+        flash(" La Nota del Alumno/a".$notaAdicional_1->alumno->NOMBRES.'-'.$notaAdicional_1->alumno->APELLIDOS." fue editada correctamente!!!")->warning();
+        return redirect()->action('NotaAdicionalController@view',['idNota'=>$request->idNota]);
     }
 
     /**

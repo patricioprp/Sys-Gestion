@@ -33,19 +33,26 @@
               <th>#</th>
               <th>DESCRIPCION</th>
               <th>NOTA</th>
+              <th>NOTA ARRAY</th>
               <th>ACCION</th>
             </tr>
-
+            {!! Form::open(['route' => 'NotaAdicional.store','method'=>'POST']) !!}
               @foreach ($notaAdicionals as $notaAdicional)
               <tr>
-                <td>{{$notaAdicional->IDNOTAADICIONAL}}</td>
+                <td>{{ $notaAdicional->IDNOTAADICIONAL }}</td>
                 <td>{{$notaAdicional->planAsigAdic->DESCRIPCION}}</td>
-                <td>{{$notaAdicional->NOTA}}</td>
+                <td>{{ $notaAdicional->NOTA }}</td>
+                <td>
+                  <input type="text" name={{ $notaAdicional->IDNOTAADICIONAL }} value={{ $notaAdicional->NOTA }}>
+                  <input type="hidden" name="idNota" value={{ $nota->NOTAID }} >
+                </td>
               <td><a href="{{route('NotaAdicional.show',['idNota' => $nota->NOTAID,  'idNotaAdicional'=>$notaAdicional->IDNOTAADICIONAL])}}" class="btn btn-warning" title="Calificar"><b>Editar Nota</b></span></a>
                 </td>
             </tr>
               @endforeach
           </table>
+          {!! Form::submit('Registrar',['class'=>'btn btn-primary']) !!}
+          {!! Form::close() !!}
         </div>
         </div>
 
