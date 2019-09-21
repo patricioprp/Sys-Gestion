@@ -32,9 +32,8 @@
             <tr>
               <th>#</th>
               <th>DESCRIPCION</th>
-              <th>NOTA</th>
-              <th>NOTA ARRAY</th>
-              <th>ACCION</th>
+              <th>NOTA ACTUAL</th>
+              <th></th>
             </tr>
            <input type="hidden" value={{ $i=0 }}>
             {!! Form::open(['route' => 'NotaAdicional.store','method'=>'POST']) !!}
@@ -48,13 +47,13 @@
                   <input type="text" name={{ $i }} value={{ $notaAdicional->NOTA }}>
                   <input type="hidden" name="idNota" value={{ $nota->NOTAID }} >
                 </td>
-              <td><a href="{{route('NotaAdicional.show',['idNota' => $nota->NOTAID,  'idNotaAdicional'=>$notaAdicional->IDNOTAADICIONAL])}}" class="btn btn-warning" title="Calificar"><b>Editar Nota</b></span></a>
-                </td>
             </tr>
             <input type="hidden" value={{ $i=$i+1 }}>
               @endforeach
           </table>
+          <center>
           {!! Form::submit('Registrar',['class'=>'btn btn-primary']) !!}
+          </center>
           {!! Form::close() !!}
         </div>
         </div>

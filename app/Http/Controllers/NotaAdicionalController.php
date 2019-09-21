@@ -51,7 +51,7 @@ class NotaAdicionalController extends Controller
         $notAd->NOTA=$request->$idx;
         $notAd->save();
         }
-        flash(" La Nota del Alumno/a".$nota->alumno->NOMBRES.'-'.$nota->alumno->APELLIDOS." fue editada correctamente!!!")->warning();
+        flash(" La Nota del Alumno/a  ".$nota->alumno->NOMBRES.'-'.$nota->alumno->APELLIDOS." fue editada correctamente!!!")->warning();
         return redirect()->action('NotaAdicionalController@view',['idNota'=>$request->idNota]);
     }
 
@@ -67,10 +67,10 @@ class NotaAdicionalController extends Controller
     }
     public function showNotaAdicional($idNota,$idNotaAdicional)
     {
-       $nota = Nota::find($idNota);
+      /* $nota = Nota::find($idNota);
        $notaAdicional = NotAdicional::find($idNotaAdicional);
        return view('notaAdicional.edit')->with('nota',$nota)
-                                        ->with('notaAdicional',$notaAdicional);
+                                        ->with('notaAdicional',$notaAdicional);*/
     }
 
     /**
