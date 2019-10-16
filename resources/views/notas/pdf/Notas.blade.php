@@ -32,21 +32,21 @@
           position: center;
       }
       h4{
-          background-color: darkgray;
           color: black;
           border: 1px solid #000;
+          margin-top: 0;
+          margin-bottom: 0;
       }
       </style>
   </head>
   <body>
        <center><h1>Colegio Nueva Concepcion</h1></center>
-       <center><h3>Listado de Notas de Alummnos</h3></center>
-       <h4>Asignatura:{{ $asignatura->NOMBRE }}</h4>
-       <h4>Docente:{{ Auth::user()->name }}</h4>
+       <center><h3>Listado de Notas de Alumnos</h3></center>
+       <h4>Asignatura: {{ $asignatura->NOMBRE }}</h4>
+       <h4>Docente: {{ Auth::user()->name }}</h4>
        <h4>Tipo de Nota: {{$tipoNota->DESCRIPCION}}</h4>
        <h4>Modalidad del Examen: {{$tipoNota->modalidad->DESCRIPCION}}</h4>
-       <h4>Fecha del Reporte:  {{$date}}</h4>
-       <h4>Hora del Reporte:   {{$time}}</h4>
+       <h4>Fecha del Reporte:  {{$date}} / Hora del Reporte:   {{$time}}</h4>
            <!--  <p><div>
                 <img src='http://subirimagen.me/uploads/20190202225415.png'/>
              </div></p>
