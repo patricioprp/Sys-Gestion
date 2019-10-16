@@ -32,8 +32,7 @@
             <tr>
               <th>#</th>
               <th>DESCRIPCION</th>
-              <th>NOTA ACTUAL</th>
-              <th></th>
+              <th>NOTA</th>
             </tr>
            <input type="hidden" value={{ $i=0 }}>
             {!! Form::open(['route' => 'NotaAdicional.store','method'=>'POST']) !!}
@@ -42,8 +41,7 @@
               <tr>
                 <td>{{ $notaAdicional->IDNOTAADICIONAL }}</td>
                 <td>{{$notaAdicional->planAsigAdic->DESCRIPCION}}</td>
-                <td>{{ $notaAdicional->NOTA }}</td>
-                <td>
+                <td>                
                   <input type="text" name={{ $i }} value={{ $notaAdicional->NOTA }}>
                   <input type="hidden" name="idNota" value={{ $nota->NOTAID }} >
                 </td>

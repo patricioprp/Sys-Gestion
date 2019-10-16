@@ -64,10 +64,19 @@ class NotaController extends Controller
 
         $IdNota = "false";
 
-        $notasQuery = Nota::where([['ASIGNATURAID','=',$asignatura->ASIGNATURAID],['ANIO','=',date("Y")],['TIPONOTAID','=',$request->tipoNota],
+       /* $notasQuery = Nota::where([['ASIGNATURAID','=',$asignatura->ASIGNATURAID],['ANIO','=',date("Y")],['TIPONOTAID','=',$request->tipoNota],
          ['IDMODALIDAD','=',$modalidad->IDMODALIDAD],['ASIGNATURACURSOID','=',$asignaturaCurso->ASIGNATURACURSOID]])->orderBy('NOTAID', 'DESC');
 
-         $notas=$notasQuery->get();
+         $notas=$notasQuery->get();*/
+         $notasQuery = Nota::
+         join('ALUMNOS', 'ALUMNOS.IDALUMNO', '=', 'NOTAS.IDALUMNO')
+         ->where('NOTAS.ANIO', '=', date("Y"))->where('NOTAS.ASIGNATURAID','=',$asignatura->ASIGNATURAID)->where('NOTAS.TIPONOTAID','=',$request->tipoNota)
+         ->where('NOTAS.IDMODALIDAD','=',$modalidad->IDMODALIDAD)->where('NOTAS.ASIGNATURACURSOID','=',$asignaturaCurso->ASIGNATURACURSOID)
+         ->Where('ALUMNOS.EGRESO',NULL)
+         ->orderBy('ALUMNOS.APELLIDOS', 'DESC')
+         ->orderBy('ALUMNOS.NOMBRES', 'DESC')
+         ->get();
+         $notas=$notasQuery;
 
         if(count($notas)==0)
         {
