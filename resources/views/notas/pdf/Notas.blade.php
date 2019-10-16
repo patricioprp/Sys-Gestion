@@ -41,11 +41,16 @@
   <body>
        <center><h1>Colegio Nueva Concepcion</h1></center>
        <center><h3>Listado de Notas de Alummnos</h3></center>
-        <h4>Tipo de Nota: {{$tipoNota->DESCRIPCION}}</h4>
+       <h4>Asignatura:{{ $asignatura->NOMBRE }}</h4>
+       <h4>Docente:{{ Auth::user()->name }}</h4>
+       <h4>Tipo de Nota: {{$tipoNota->DESCRIPCION}}</h4>
        <h4>Modalidad del Examen: {{$tipoNota->modalidad->DESCRIPCION}}</h4>
-             <p><div>
+       <h4>Fecha del Reporte:  {{$date}}</h4>
+       <h4>Hora del Reporte:   {{$time}}</h4>
+           <!--  <p><div>
                 <img src='http://subirimagen.me/uploads/20190202225415.png'/>
              </div></p>
+            -->
     <hr />
      <p align="right">
         <div>
@@ -74,10 +79,7 @@
               </table>
         </div>
     </p>
-    <footer>
-    <h4>Fecha del Reporte:  {{$date}}</h4>
-    <h4>Hora del Reporte:   {{$time}}</h4>
-    </footer>
+    <footer></footer>
   </body>
   </html>
 

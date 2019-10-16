@@ -146,10 +146,11 @@ class NotaController extends Controller
         join('ALUMNOS', 'ALUMNOS.IDALUMNO', '=', 'NOTAS.IDALUMNO')
         ->where('NOTAS.ANIO', '=', $asignaturaCurso->ANIO)->where('NOTAS.ASIGNATURAID','=',$asignatura->ASIGNATURAID)->where('NOTAS.TIPONOTAID','=',$idTipoNota)
         ->where('NOTAS.IDMODALIDAD','=',$modalidad->IDMODALIDAD)->where('NOTAS.ASIGNATURACURSOID','=',$asignaturaCurso->ASIGNATURACURSOID)
+        ->Where('ALUMNOS.EGRESO',NULL)
         ->orderBy('ALUMNOS.APELLIDOS', 'ASC')
         ->orderBy('ALUMNOS.NOMBRES', 'ASC')
         ->get();
-        $pdf = PDF::loadView('notas.pdf.Notas',compact('notas','asignatura','tipoNota','date','time'));
+        $pdf = PDF::loadView('notas.pdf.Notas',compact('asignatura','notas','asignatura','tipoNota','date','time'));
 
         return $pdf->download('listado.pdf');
     
