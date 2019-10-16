@@ -79,9 +79,17 @@ class DocenteCursoController extends Controller
 
     $asignatura = Asignatura::find($asignaturaCurso->asignatura->ASIGNATURAID);
 
-     $notas = Nota::where([['ASIGNATURAID','=',$asignatura->ASIGNATURAID],['ANIO','=',$asignaturaCurso->ANIO],['TIPONOTAID','=',$idTipoNota],
-     ['IDMODALIDAD','=',$modalidad->IDMODALIDAD],['ASIGNATURACURSOID','=',$asignaturaCurso->ASIGNATURACURSOID]])->orderBy('NOTAID', 'DESC')->get();
+    /* $notas = Nota::where([['ASIGNATURAID','=',$asignatura->ASIGNATURAID],['ANIO','=',$asignaturaCurso->ANIO],['TIPONOTAID','=',$idTipoNota],
+     ['IDMODALIDAD','=',$modalidad->IDMODALIDAD],['ASIGNATURACURSOID','=',$asignaturaCurso->ASIGNATURACURSOID]])->orderBy('NOTAID', 'DESC')->get();*/
+     $notasQuery = Nota::
+     join('ALUMNOS', 'ALUMNOS.IDALUMNO', '=', 'NOTAS.IDALUMNO')
+     ->where('NOTAS.ANIO', '=', date("Y"))->where('NOTAS.ASIGNATURAID','=',$asignatura->ASIGNATURAID)->where('NOTAS.TIPONOTAID','=',$idTipoNota)
+     ->where('NOTAS.IDMODALIDAD','=',$modalidad->IDMODALIDAD)->where('NOTAS.ASIGNATURACURSOID','=',$asignaturaCurso->ASIGNATURACURSOID)
+     ->Where('ALUMNOS.EGRESO',NULL)
+     ->orderBy('ALUMNOS.APELLIDOS', 'DESC')
+     ->orderBy('ALUMNOS.NOMBRES', 'DESC');
 
+     $notas=$notasQuery->get();
      return view('notas.Listado')->with('notas',$notas)
                                  ->with('asignatura',$asignatura)
                                  ->with('idTipoNota',$idTipoNota)
