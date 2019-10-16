@@ -74,25 +74,19 @@ class NotaController extends Controller
          ->where('NOTAS.IDMODALIDAD','=',$modalidad->IDMODALIDAD)->where('NOTAS.ASIGNATURACURSOID','=',$asignaturaCurso->ASIGNATURACURSOID)
          ->Where('ALUMNOS.EGRESO',NULL)
          ->orderBy('ALUMNOS.APELLIDOS', 'DESC')
-         ->orderBy('ALUMNOS.NOMBRES', 'DESC')
-         ->get();
-         $notas=$notasQuery;
+         ->orderBy('ALUMNOS.NOMBRES', 'DESC');
+         
+         $notas=$notasQuery->get();
 
         if(count($notas)==0)
         {
         $notas2 = DB::select('execute procedure AGREGARNOTAS(?,?,?,?,?,?)',array($asignatura->ASIGNATURAID,$modalidad->IDMODALIDAD,$request->tipoNota,date("Y"),$asignaturaCurso->nivel->IDNIVELES,$asignaturaCurso->division->IDDIVISION));
 
         $notas=$notasQuery->get();
-        return view('notas.Listado')->with('notas',$notas)
-        ->with('asignatura',$asignatura)
-        ->with('idTipoNota',$request->tipoNota)
-        ->with('asignaturaCursoId',$asignaturaCurso->ASIGNATURACURSOID)
-        ->with('tipoNota',$tipoNota)
-        ->with('estado',$estado)
-        ->with('IdNota',$IdNota);
+
         }
 
-         return view('notas.Listado')->with('notas',$notas)
+        return view('notas.Listado')->with('notas',$notas)
                                      ->with('asignatura',$asignatura)
                                      ->with('idTipoNota',$request->tipoNota)
                                      ->with('asignaturaCursoId',$asignaturaCurso->ASIGNATURACURSOID)
