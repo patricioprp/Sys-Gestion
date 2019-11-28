@@ -24,7 +24,7 @@
                         <div class="card-header" style="background-color:#9C2932;color:#FBFBFB"><b>Consulta de Datos Historicos</b></div>
                         <div class="card-body text-secundary">
                          <!-- <h5 class="card-title">Primary card title</h5> -->
-                          <a href="{{route('docenteCurso.all')}}"><p class="card-text"><h5>Carga de Notas Académicas y Asistencias de Alumnos por Asignatura</h5></p></a>
+                          <a href="{{route('docenteCurso.all')}}"><p class="card-text"><h5>Consultas de Notas Académicas y Asistencias de Alumnos por Asignatura</h5></p></a>
                         </div>
                 </div>
             </div>
