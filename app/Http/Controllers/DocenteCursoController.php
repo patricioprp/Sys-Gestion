@@ -44,6 +44,20 @@ class DocenteCursoController extends Controller
 
     }
 
+    public function all()
+    {
+        $docente = Auth::User();
+        $docenteCursos = DocenteCurso::join('ASIGNATURACURSO','ASIGNATURACURSO.ASIGNATURACURSOID','=','DOCENTECURSO.ASIGNATURACURSOID')
+                                     ->join('ASIGNATURA','ASIGNATURA.ASIGNATURAID','=','ASIGNATURACURSO.ASIGNATURAID')
+                                     ->select('ASIGNATURACURSO.*','ASIGNATURA.IDTIPOMODALIDAD','ASIGNATURA.NOMBRE AS NOMASIGNATURA')
+                                     ->where([['DOCENTECURSO.iddocente','=',$docente->iddocente],['ASIGNATURACURSO.ANIO','=',date("Y")]])->get();
+
+        $configuraMods = ConfiguraMod::where([['ANO','=',date("Y")],['IDMODALIDAD','>','0']])->get();
+
+        return view('notas.DocenteCursoAll')->with('configuraMods',$configuraMods)
+                                         ->with('docenteCursos',$docenteCursos);
+    }
+
     /**
      * Show the form for creating a new resource.
      *

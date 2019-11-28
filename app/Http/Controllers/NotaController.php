@@ -96,6 +96,50 @@ class NotaController extends Controller
 
     }
 
+    public function notaView(Request $request){
+        $tipoNota = TipoNota::find($request->tipoNota);
+
+        $modalidad = Modalidad::find($tipoNota->IDMODALIDAD);
+
+        $asignaturaCurso = AsignaturaCurso::find($request->asignaturaCursoId);
+
+        $asignatura = Asignatura::find($asignaturaCurso->asignatura->ASIGNATURAID);
+
+        $estado="false";
+
+        $IdNota = "false";
+
+       /* $notasQuery = Nota::where([['ASIGNATURAID','=',$asignatura->ASIGNATURAID],['ANIO','=',date("Y")],['TIPONOTAID','=',$request->tipoNota],
+         ['IDMODALIDAD','=',$modalidad->IDMODALIDAD],['ASIGNATURACURSOID','=',$asignaturaCurso->ASIGNATURACURSOID]])->orderBy('NOTAID', 'DESC');
+
+         $notas=$notasQuery->get();*/
+         $notasQuery = Nota::
+         join('ALUMNOS', 'ALUMNOS.IDALUMNO', '=', 'NOTAS.IDALUMNO')
+         ->where('NOTAS.ANIO', '=', date("Y"))->where('NOTAS.ASIGNATURAID','=',$asignatura->ASIGNATURAID)->where('NOTAS.TIPONOTAID','=',$request->tipoNota)
+         ->where('NOTAS.IDMODALIDAD','=',$modalidad->IDMODALIDAD)->where('NOTAS.ASIGNATURACURSOID','=',$asignaturaCurso->ASIGNATURACURSOID)
+         ->Where('ALUMNOS.EGRESO',NULL)
+         ->orderBy('ALUMNOS.APELLIDOS', 'DESC')
+         ->orderBy('ALUMNOS.NOMBRES', 'DESC');
+         
+         $notas=$notasQuery->get();
+
+        if(count($notas)==0)
+        {
+        $notas2 = DB::select('execute procedure AGREGARNOTAS(?,?,?,?,?,?)',array($asignatura->ASIGNATURAID,$modalidad->IDMODALIDAD,$request->tipoNota,date("Y"),$asignaturaCurso->nivel->IDNIVELES,$asignaturaCurso->division->IDDIVISION));
+
+        $notas=$notasQuery->get();
+
+        }
+
+        return view('notas.ListadoAll')->with('notas',$notas)
+                                     ->with('asignatura',$asignatura)
+                                     ->with('idTipoNota',$request->tipoNota)
+                                     ->with('asignaturaCursoId',$asignaturaCurso->ASIGNATURACURSOID)
+                                     ->with('tipoNota',$tipoNota)
+                                     ->with('estado',$estado)
+                                     ->with('IdNota',$IdNota);
+    }
+
 
     /**
      * Display the specified resource.

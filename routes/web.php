@@ -18,6 +18,8 @@ Route::get('/', function () {
 
 Auth::routes();
 Route::resource('docenteCurso','DocenteCursoController');
+Route::get('docenteCursoAll','DocenteCursoController@all')->name('docenteCurso.all');//para consultar todas las notas
+Route::post('NotaAll','NotaController@notaView')->name('NotaAll.view');;//para listar las notas
 Route::get('tipoNota/{IDMODALIDAD}','ModalidadController@getTipoNota');//para el select dinamico
 //Route::get('asignaturaCurso/{TIPONOTAID}','DocenteCursoController@getAsignatura');//para el select dinamico
 Route::resource('Nota','NotaController');
