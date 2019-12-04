@@ -37,6 +37,9 @@
         <hr  />
     </div>
   <div class="row">
+        <div class="col-lg-2">
+            <a href="/" class="btn btn-danger" style="color:white"><b>Volver</b></a>
+      </div>
       <div class="col-lg-2">
               {!! Form::submit('Buscar',['class'=>'btn btn-primary']) !!}
       </div>
