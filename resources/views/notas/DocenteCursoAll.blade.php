@@ -15,7 +15,7 @@
     <select class="form-control col-md-4" id="modalidad" name="modalidad" required>
         <option value="" disabled selected>Seleccione una Modalidad</option>
     @foreach($configuraMods as $configuraMod)
-        <option value={{$configuraMod->modalidad->IDMODALIDAD}}>{{ $configuraMod->modalidad->DESCRIPCION}}</option>
+        <option value={{$configuraMod->modalidad->IDMODALIDAD}}>{{  $configuraMod->modalidad->EVALUACION }}-{{ $configuraMod->modalidad->DESCRIPCION}}</option>
         @endforeach
 </select>
 </div>
