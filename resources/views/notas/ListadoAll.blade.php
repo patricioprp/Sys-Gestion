@@ -40,6 +40,7 @@
           <th>AÑO</th>
           <th>NIVEL</th>
           <th>DIVISION</th>
+          <th>ACCION</th>
         </tr>
           @foreach ($notas as $nota)
             @if($nota->NOTAID=="$IdNota")
@@ -50,6 +51,11 @@
             <td>{{$nota->ANIO}}</td>
             <td>{{$nota->IDNIVELES}}</td>
             <td>{{$nota->IDDIVISION}}</td>
+            <td>
+                @if($asignatura->NOTAADICIONAL)
+            <a href="{{route('NotaAdicional.viewAll',$nota->NOTAID)}}" class="btn btn-info""><b>Nota Adicional</b></a>
+                @endif
+            </td>
         </tr>
         @elseif(($IdNota!="{{$nota->NOTAID}}"))
         <tr>
@@ -60,6 +66,11 @@
             <td>{{$nota->ANIO}}</td>
             <td>{{$nota->IDNIVELES}}</td>
             <td>{{$nota->IDDIVISION}}</td>
+            <td>
+                @if($asignatura->NOTAADICIONAL)
+            <a href="{{route('NotaAdicional.viewAll',$nota->NOTAID)}}" class="btn btn-info""><b>Nota Adicional</b></a>
+                @endif
+            </td>
         </tr>
         @endif
           @endforeach
@@ -67,5 +78,24 @@
     </div>
     </div>
 </p>
-
+<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+<script>
+function reply_click(clicked_id)
+{
+    var id=clicked_id;
+    console.log('#'+id);
+    var posicion = $('#'+id).offset().top;
+    sessionStorage.setItem("posicion", posicion);
+}
+$( document ).ready(function() {
+                var posicion= sessionStorage.getItem("posicion");
+                console.log(posicion);
+                $("html, body").animate({
+                scrollTop: posicion
+            }, 2000);
+            sortTable(1);//se envia parametro para ordenar a la funcion para ordenar la tabla, tmb se puede ordenar clickeando en la colummna
+             //inicializar=0;
+            // sessionStorage.setItem("posicion", inicializar);
+        });
+</script>
 @endsection

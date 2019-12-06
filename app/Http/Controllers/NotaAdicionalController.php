@@ -63,7 +63,7 @@ class NotaAdicionalController extends Controller
      */
     public function show($id)
     {
-        //
+
     }
     public function showNotaAdicional($idNota,$idNotaAdicional)
     {
@@ -128,4 +128,23 @@ class NotaAdicionalController extends Controller
     return view('notaAdicional.view')->with('nota',$nota)
                                      ->with('notaAdicionals',$notaAdicionals);
     }
+
+    public function viewAll($idNota){
+
+        $nota = Nota::find($idNota);
+        $notaAdicionalsQuery = NotAdicional::where([['ANO','=',$nota->ANIO],['IDALUMNO','=',$nota->IDALUMNO],
+                                              ['IDMODALIDAD','=',$nota->IDMODALIDAD],['ASIGNATURAID','=',$nota->ASIGNATURAID]]);
+        $notaAdicionals= $notaAdicionalsQuery->get();
+         if(count($notaAdicionals)==0)
+        {
+        $notaAdicionals = DB::select('execute procedure AGREGARNOTASADIC(?,?,?,?,?)',array($nota->ASIGNATURAID,$nota->IDMODALIDAD,date("Y"),$nota->IDNIVELES,$nota->IDDIVISION));
+        $notaAdicionals= $notaAdicionalsQuery->get();
+        return view('notaAdicional.viewAll')->with('nota',$nota)
+                                         ->with('notaAdicionals',$notaAdicionals);
+        }
+    
+        return view('notaAdicional.viewAll')->with('nota',$nota)
+                                         ->with('notaAdicionals',$notaAdicionals);
+    }
+
 }
